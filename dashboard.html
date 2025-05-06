@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="./JSC/jscharting.js"></script>
+    <script type="text/javascript" src="./JSC/modules/types.js"></script>
+    <script type="text/javascript" src="./JSC/modules/toolbar.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Dashboard</title>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+            <div class="filter-item">
+                <div id="dateLabel"></div>
+                <div id="datePickerDiv" style="width:300px;height:280px;margin:0 auto"></div>
+            </div>
+            <div class="filter-item">
+                <label for="to-date">Hasta:</label>
+                <div class="dropdown">11-10-2024</div>
+            </div>
+            <div class="filter-item">
+                <label for="player">Jugador:</label>
+                <div class="dropdown">QA QA</div>
+            </div>
+            <div class="apply-button">
+                <button>Aplicar</button>
+            </div>
+        </div>
+
+        <div class="content">
+            <div id="radarDiv" class="card radar-chart">
+            </div>
+            <div id="barsDiv" class="card bar-chart">
+            </div>
+            <div class="card empty-state">
+            </div>
+        </div>
+
+        <div class="gauge-group-container">
+            <h2>Tiempo de reaccion</h2>
+            <div class="gauge-group">
+                <div id="chart1Div" class="gauge-container">
+                    <h1>Div 1</h1>
+                </div>
+                <div id="chart2Div" class="gauge-container">
+                    <h1>Div 2</h1>
+                </div>
+                <div id="chart3Div" class="gauge-container">
+                    <h1>Div 3</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="./radar.js"></script>
+    <script type="text/javascript" src="./bars.js"></script>
+    <script type="text/javascript" src="./gauge.js"></script>
+    <script type="text/javascript" src="./datePicker.js"></script>
+
+</body>
+
+</html>

@@ -1,168 +1,124 @@
+// JS
 var chart;
-var player1 = 'James Harden HOU',
-    player2 = 'Giannis Antetokounmpo MIL';
+var data = [
+  {
+    "Player": "Primera Division",
+    "MOT": 1,
+    "RT": 1,
+    "VP": 1,
+  },
+  {
+    "Player": "QA QA",
+    "MOT": 0.7,
+    "RT": 1,
+    "VP": 0,
+  }
+]
+
 var palette = ['#3F51B5', '#00BCD4'];
-var maxValues = {};
+var maxValues = {
+  "MOT": 1,
+  "RT": 1,
+  "VP": 1,
+};
+chart = renderChart();
 
-// Reemplaza este arreglo con los datos JSON del CSV
-var nbaData = [
-    {
-        "Player": "James Harden",
-        "Tm": "HOU",
-        "Points": 34.3,
-        "Rebounds": 6.6,
-        "Assists": 7.5,
-        "Field Goal": 0.44,
-        "3-Point FG": 0.35
-    },
-    {
-        "Player": "Giannis Antetokounmpo",
-        "Tm": "MIL",
-        "Points": 29.5,
-        "Rebounds": 13.6,
-        "Assists": 5.6,
-        "Field Goal": 0.553,
-        "3-Point FG": 0.304
-    },
-    // ... agrega más jugadores si es necesario
-];
-
-calculateMaxValues(nbaData);
-chart = renderChart(nbaData);
-
-function renderChart(data) {
-    return JSC.chart('chartDiv', {
-        type: 'radar area',
-        legend_visible: false,
-        animation_duration: 500,
-        title_label: {
-            text: 'NBA Player Comparison',
-            style_fontSize: 17
-        },
-        palette: palette,
-        yAxis: {
-            alternateGridFill: 'none',
-            scale_range: [0, 1],
-            defaultTick_label_visible: false
-        },
-        xAxis_defaultTick: {
-            line_visible: false,
-            label_width: 80
-        },
-        defaultSeries_mouseTracking_enabled: false,
-        defaultPoint_marker: {
-            type: 'circle',
-            outline_width: 0
-        },
-        series: makeSeries(data, player1, player2),
-        toolbar_defaultItem_position: 'inside top',
-        toolbar_items: {
-            dropdown1: {
-                type: 'select',
-                value: player1,
-                items: makePlayersArray(data).join(','),
-                events_change: function (val) {
-                    player1 = val;
-                    var series = makeSeries(data, val, player2);
-                    chart.options({ series: series });
-                },
-                itemsBox_outline_width: 0,
-                fill: palette[0],
-                radius: 20,
-                outline_width: 0,
-                label_color: 'white',
-                states_hover: {
-                    fill: palette[0],
-                    outline_width: 0
-                }
-            },
-            label: {
-                label_text: 'VS.',
-                boxVisible: false,
-                margin: 4
-            },
-            dropdown2: {
-                type: 'select',
-                value: player2,
-                items: makePlayersArray(data).join(','),
-                events_change: function (val) {
-                    player2 = val;
-                    var series = makeSeries(data, player1, val);
-                    chart.options({ series: series });
-                },
-                itemsBox_outline_width: 0,
-                fill: palette[1],
-                radius: 20,
-                outline_width: 0,
-                label_color: 'white',
-                states_hover: {
-                    fill: palette[1],
-                    outline_width: 0
-                }
-            }
-        }
-    });
-}
-
-function calculateMaxValues(data) {
-    'Points,Rebounds,Assists,Field Goal,3-Point FG'
-        .split(',')
-        .map(function (n) {
-            maxValues[n] = JSC.max(nbaData, n);
-        });
-}
-
-var chart = JSC.chart('chartDiv', {
-    debug: true,
+function renderChart() {
+  return JSC.chart('radarDiv', {
+    type: 'radar polar area',
     legend_visible: false,
-    defaultTooltip_enabled: false,
-    xAxis_spacingPercentage: 0.4,
-    yAxis: [
-      {
-        id: 'ax1',
-        defaultTick: {
-          padding: 10,
-          enabled: false
-        },
-        customTicks: [350, 600, 700, 850],
-        line: {
-          width: 10,
-  
-          /*Defining the option will enable it.*/
-          breaks: {},
-  
-          /*Palette is defined at series level with an ID referenced here.*/
-          color: 'smartPalette:pal1'
-        },
-        scale_range: [350, 850]
-      }
-    ],
-    defaultSeries: {
-      type: 'gauge column roundcaps',
-      shape: {
-        label: {
-          text: '%max',
-          align: 'center',
-          verticalAlign: 'middle',
-          style_fontSize: 28
-        }
-      }
+    animation_duration: 500,
+    title_label: {
+      text: 'Resumen',
+      style_fontSize: 17
     },
-    series: [
-      {
-        type: 'column roundcaps',
-        name: 'Temperatures',
-        yAxis: 'ax1',
-        palette: {
-          id: 'pal1',
-          pointValue: '%yValue',
-          ranges: [
-            { value: 350, color: '#77E6B4' },
-            { value: 600, color: '#FFD221' },
-            { value: [700, 850], color: '#FF5353' },
-          ]
+    title_position: 'center',
+    palette: palette,
+    yAxis: {
+      alternateGridFill: 'none',
+      scale_range: [0, 1],
+      defaultTick_label_visible: false
+    },
+    defaultSeries_mouseTracking_enabled: true,
+    defaultPoint_marker: { type: 'circle', outline_width: 0 },
+    series: makeSeries(),
+
+  });
+}
+
+function makeSeries() {
+  player1Data = data[0];
+  player2Data = data[1];
+
+  return [
+    {
+      name: player1Data.Player,
+      id: 'Player 1',
+      shape_fill: ['#B0BEC5', 0.5],
+      points: [
+        {
+          name: makeTicks(player1Data, player2Data, 'RT'),
+          y: normalizeValue(player1Data, 'RT'),
+          id: 'RT1'
         },
-        points: [['x', [350, 560]]]
-      }
-    ]
-  }); 
+        {
+          name: makeTicks(player1Data, player2Data, 'VP'),
+          y: normalizeValue(player1Data, 'VP'),
+          id: 'VP1'
+        },
+        {
+          name: makeTicks(player1Data, player2Data, 'MOT'),
+          y: normalizeValue(player1Data, 'MOT'),
+          id: 'MOT1'
+        },
+      ]
+    },
+    {
+      name: player2Data.Player,
+      id: 'Player 2',
+      shape_fill: ['#B0BEC5', 0.5],
+      points: [
+        {
+          name: makeTicks(player1Data, player2Data, 'RT'),
+          y: normalizeValue(player2Data, 'RT'),
+          id: 'RT2'
+        },
+        {
+          name: makeTicks(player1Data, player2Data, 'VP'),
+          y: normalizeValue(player2Data, 'VP'),
+          id: 'VP2'
+        },
+        {
+          name: makeTicks(player1Data, player2Data, 'MOT'),
+          y: normalizeValue(player2Data, 'MOT'),
+          id: 'MOT2'
+        },
+      ]
+    }
+  ];
+}
+function normalizeValue(data, value) {
+  return data[value] / maxValues[value];
+}
+function makeTicks(player1Data, player2Data, type) {
+  return (
+    '<span style="color:' +
+    palette[0] +
+    '; font-size:14px"><b>' +
+    player1Data[type] +
+    '</b></span><span style="color:#E0E0E0; width:8px; align:center">/</span>' +
+    '<span style="color:' +
+    palette[1] +
+    '; font-size:14px"><b>' +
+    player2Data[type] +
+    '</b></span><br><span style="color:#424242">' +
+    type +
+    '</span>'
+  );
+}
+
+function makePlayersArray(data) {
+  return data.map(function (a) {
+    return a.Player;
+  });
+}

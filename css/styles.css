@@ -1,0 +1,158 @@
+/* General container styling */
+.container {
+    padding: 16px;
+    font-family: sans-serif;
+    background-color: #f5f7fb;
+}
+
+/* Filter bar styling */
+.filter-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+    background-color: white;
+    padding: 16px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Filter item */
+.filter-item {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+}
+
+.dropdown {
+    background-color: #f0f0f0;
+    padding: 6px 12px;
+    border-radius: 6px;
+    margin-top: 4px;
+}
+
+/* Apply button */
+.apply-button {
+    margin-left: auto;
+}
+
+.apply-button button {
+    background-color: #397dff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Content section with 3 charts/cards */
+.content {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+/* Each card (chart section) */
+.card {
+    flex: 1;
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.gauge-group-container {
+    flex: 1;
+    background-color: white;
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    min-height: 200px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.gauge-group {
+    flex: 1;
+    min-height: 200px;
+    width: 100%;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+
+.gauge-container {
+    flex: 1;
+    height: 100%;
+}
+
+
+/* Optional: Specific heights or widths can be adjusted */
+.radar-chart,
+.bar-chart,
+.empty-state {
+    /* Placeholder: Add class-specific styles if needed */
+}
+
+/*CSS*/
+.inputEl {
+    width: 122px;
+    display: inline-block;
+    font-family: arial;
+    font-size: 14px;
+    background-color: #f7f7f7;
+
+    border: 0px solid gray;
+    border-radius: 4px;
+    height: 20px;
+    padding: 5px;
+    margin: 1px;
+}
+
+.inputsWrapper {
+    margin-left: 32px;
+
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 5px;
+    width: 290px;
+}
+
+#picker {
+    display: none;
+    margin-top: 5px;
+    margin-left: -9px;
+    z-index: 1;
+    position: absolute;
+    width: 368px;
+}
+
+#pickerContainer {
+    width: 350px;
+    margin-left: 10px;
+
+
+    padding: 9px;
+}
+
+.opened {
+    background-color: #ffffff;
+    height: 275px;
+}
+
+.activeEl {
+    background-color: #c6d4ff;
+}
