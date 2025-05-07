@@ -1,29 +1,14 @@
-// JS 
-var months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
-];
-var dateRange = [
-    new Date('1/1/2010'),
-    new Date('12/31/2030')
-],
-    curDate = new Date(),
-    titleAnnotation = undefined;
+function createCalendarChart(containerId, inputId) {
+    const months = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+    ];
 
-var chart = JSC.chart(
-    'datePickerDiv',
-    {
-        debug: true,
+    const dateRange = [new Date('1/1/2010'), new Date('12/31/2030')];
+    let curDate = new Date();
+
+    const chart = JSC.chart(containerId, {
+        debug: false,
         type: 'calendar month solid',
         yAxis_visible: false,
         legend_visible: false,
@@ -46,12 +31,10 @@ var chart = JSC.chart(
                 focusGlow: false
             }
         },
-        events_pointSelectionChanged: function (
-            points
-        ) {
-            updateDateLabel(
-                points[0].options('attributes_date')
-            );
+        events_pointSelectionChanged: function (points) {
+            const selectedDate = points[0].options('attributes_date');
+            document.getElementById(inputId).value = JSC.formatDate(selectedDate, 'dd-MM-yyyy');
+            document.getElementById(containerId).style.display = "none";
         },
         toolbar_items: {
             backward: {
@@ -59,13 +42,10 @@ var chart = JSC.chart(
                 fill: 'none',
                 outline_visible: false,
                 margin: 5,
-                icon: {
-                    name: 'linear/arrows/left',
-                    fill: '#757575'
-                },
-                events_click: function () {
-                    var d = new Date(curDate);
-                    zoomTo(d.setMonth(d.getMonth() - 1));
+                icon: { name: 'linear/arrows/left', fill: '#757575' },
+                events_click: () => {
+                    const d = new Date(curDate);
+                    zoomTo(new Date(d.setMonth(d.getMonth() - 1)));
                 }
             },
             forward: {
@@ -73,13 +53,10 @@ var chart = JSC.chart(
                 fill: 'none',
                 outline_visible: false,
                 margin: 5,
-                icon: {
-                    name: 'linear/arrows/right',
-                    fill: '#757575'
-                },
-                events_click: function () {
-                    var d = new Date(curDate);
-                    zoomTo(d.setMonth(d.getMonth() + 1));
+                icon: { name: 'linear/arrows/right', fill: '#757575' },
+                events_click: () => {
+                    const d = new Date(curDate);
+                    zoomTo(new Date(d.setMonth(d.getMonth() + 1)));
                 }
             },
             month: {
@@ -89,12 +66,10 @@ var chart = JSC.chart(
                 boxVisible: false,
                 icon_visible: false,
                 items: months.join(','),
-                label_align: 'right',
-                itemsBox_label_align: 'right',
                 value: JSC.formatDate(curDate, 'MMMM'),
-                events_change: function (val) {
-                    var d = new Date(curDate);
-                    zoomTo(d.setMonth(months.indexOf(val)));
+                events_change: val => {
+                    const d = new Date(curDate);
+                    zoomTo(new Date(d.setMonth(months.indexOf(val))));
                 }
             },
             year: {
@@ -105,54 +80,35 @@ var chart = JSC.chart(
                 icon_visible: false,
                 items: makeYearsList(dateRange).join(','),
                 value: JSC.formatDate(curDate, 'yyyy'),
-                events_change: function (val) {
-                    var d = new Date(curDate);
-                    zoomTo(d.setFullYear(val));
+                events_change: val => {
+                    const d = new Date(curDate);
+                    zoomTo(new Date(d.setFullYear(val)));
                 }
             }
         }
-    },
-    function (c) {
-        // Select today. 
-        c.series()
-            .points(curDate.getTime())
-            .options({ selected: true });
-    }
-);
+    }, function (c) {
+        c.series().points(curDate.getTime()).options({ selected: true });
+    });
 
-function zoomTo(d) {
-    d = new Date(d);
-    if (d >= dateRange[0] && d <= dateRange[1]) {
-        chart
-            .uiItems('month')
-            .options({
-                value: JSC.formatDate(d, 'MMMM')
-            });
-        chart
-            .uiItems('year')
-            .options({
-                value: JSC.formatDate(d, 'yyyy')
-            });
-        chart.zoom(d);
-        curDate = d;
+    function zoomTo(d) {
+        if (d >= dateRange[0] && d <= dateRange[1]) {
+            chart.uiItems('month').options({ value: JSC.formatDate(d, 'MMMM') });
+            chart.uiItems('year').options({ value: JSC.formatDate(d, 'yyyy') });
+            chart.zoom(d);
+            curDate = d;
+        }
     }
+
+    function makeYearsList(range) {
+        const years = [];
+        for (let i = new Date(range[0]).getFullYear(); i <= new Date(range[1]).getFullYear(); i++) {
+            years.push(i);
+        }
+        return years;
+    }
+
+    return chart;
 }
 
-function updateDateLabel(date) {
-    document.getElementById(
-        'dateLabel'
-    ).textContent =
-        'Selected Date: ' + JSC.formatDate(date, 'd');
-}
-
-function makeYearsList(range) {
-    var years = [];
-    for (
-        var i = new Date(range[0]).getFullYear();
-        i <= new Date(range[1]).getFullYear();
-        i++
-    ) {
-        years.push(i);
-    }
-    return years;
-} 
+const datePicker1 = createCalendarChart("startPopup", "startInput")
+const datePicker2 = createCalendarChart("endPopup", "endInput")

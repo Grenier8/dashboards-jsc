@@ -16,16 +16,25 @@
         <!-- Filter Bar -->
         <div class="filter-bar">
             <div class="filter-item">
-                <div id="dateLabel"></div>
-                <div id="datePickerDiv" style="width:300px;height:280px;margin:0 auto"></div>
+                <label for="to-date">Desde:</label>
+                <input type="text" id="startInput" placeholder="Fecha inicial" readonly />
+                <div id="startPopup" class="date-popup">
+                </div>
             </div>
             <div class="filter-item">
+
                 <label for="to-date">Hasta:</label>
-                <div class="dropdown">11-10-2024</div>
+                <input type="text" id="endInput" placeholder="Fecha final" readonly />
+                <div id="endPopup" class="date-popup">
+                </div>
+
             </div>
             <div class="filter-item">
                 <label for="player">Jugador:</label>
-                <div class="dropdown">QA QA</div>
+                <select title="jugador" id="selectState">
+                    <option>Jugador 1</option>
+                    <option>Jugador 2</option>
+                </select>
             </div>
             <div class="apply-button">
                 <button>Aplicar</button>
@@ -33,25 +42,31 @@
         </div>
 
         <div class="content">
-            <div id="radarDiv" class="card radar-chart">
+            <div class="card">
+                <h2>Resumen</h2>
+                <div id="radarDiv" class="chart-container">
+                </div>
             </div>
-            <div id="barsDiv" class="card bar-chart">
+            <div class="card">
+                <h2>MOT</h2>
+                <div id="barsDiv" class="chart-container">
+                </div>
             </div>
-            <div class="card empty-state">
+            <div class="card">
+                <h2>Campo Visual</h2>
+                <div id="lineDiv" class="chart-container">
+                </div>
             </div>
         </div>
 
-        <div class="gauge-group-container">
-            <h2>Tiempo de reaccion</h2>
-            <div class="gauge-group">
-                <div id="chart1Div" class="gauge-container">
-                    <h1>Div 1</h1>
+        <div class="card">
+            <h2>Tiempo de Reacción</h2>
+            <div class="chart-container">
+                <div id="gauge1Div" class="gauge-container">
                 </div>
-                <div id="chart2Div" class="gauge-container">
-                    <h1>Div 2</h1>
+                <div id="gauge2Div" class="gauge-container">
                 </div>
-                <div id="chart3Div" class="gauge-container">
-                    <h1>Div 3</h1>
+                <div id="gauge3Div" class="gauge-container">
                 </div>
             </div>
         </div>
@@ -60,7 +75,9 @@
     <script type="text/javascript" src="./radar.js"></script>
     <script type="text/javascript" src="./bars.js"></script>
     <script type="text/javascript" src="./gauge.js"></script>
+    <script type="text/javascript" src="./line.js"></script>
     <script type="text/javascript" src="./datePicker.js"></script>
+    <script type="text/javascript" src="./datePopup.js"></script>
 
 </body>
 

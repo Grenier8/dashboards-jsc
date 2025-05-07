@@ -1,53 +1,81 @@
-/* General container styling */
+h2 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.filter-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+    background: white;
+    padding: 15px 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.filter-item {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+    color: #333;
+}
+
+.filter-item label {
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+input[type="text"],
+select {
+    margin-right: 10px;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    transition: border 0.2s ease;
+    font-size: 14px;
+    width: 160px;
+}
+
+input[type="text"]:focus,
+select:focus {
+    border-color: #3b82f6;
+    outline: none;
+}
+
+#rangeInput {
+    width: 300px;
+}
+
+.apply-button {
+    margin-left: auto;
+}
+
+.apply-button button {
+    background-color: #3b82f6;
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+
+.apply-button button:hover {
+    background-color: #2563eb;
+}
+
 .container {
     padding: 16px;
     font-family: sans-serif;
     background-color: #f5f7fb;
 }
 
-/* Filter bar styling */
-.filter-bar {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 20px;
-    background-color: white;
-    padding: 16px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
-}
-
-/* Filter item */
-.filter-item {
-    display: flex;
-    flex-direction: column;
-    font-size: 14px;
-}
-
-.dropdown {
-    background-color: #f0f0f0;
-    padding: 6px 12px;
-    border-radius: 6px;
-    margin-top: 4px;
-}
-
-/* Apply button */
-.apply-button {
-    margin-left: auto;
-}
-
-.apply-button button {
-    background-color: #397dff;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-/* Content section with 3 charts/cards */
 .content {
     display: flex;
     gap: 20px;
@@ -55,24 +83,10 @@
     margin-bottom: 20px;
 }
 
-/* Each card (chart section) */
 .card {
     flex: 1;
     background-color: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    min-height: 400px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-
-.gauge-group-container {
-    flex: 1;
-    background-color: white;
-    padding: 10px;
+    padding-top: 10px;
     border-radius: 12px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     min-height: 200px;
@@ -83,10 +97,11 @@
     text-align: center;
 }
 
-.gauge-group {
+.chart-container {
     flex: 1;
+    padding: 10px;
     min-height: 200px;
-    width: 100%;
+    width: 90%;
     height: 300px;
     display: flex;
     align-items: center;
@@ -99,15 +114,19 @@
     height: 100%;
 }
 
-
-/* Optional: Specific heights or widths can be adjusted */
-.radar-chart,
-.bar-chart,
-.empty-state {
-    /* Placeholder: Add class-specific styles if needed */
+.date-popup {
+    display: none;
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 1000;
+    width: 300px;
+    height: 280px;
+    margin: 0 auto
 }
 
-/*CSS*/
+
 .inputEl {
     width: 122px;
     display: inline-block;
