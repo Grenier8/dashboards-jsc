@@ -15,26 +15,28 @@
     <div class="container">
         <!-- Filter Bar -->
         <div class="filter-bar">
-            <div class="filter-item">
-                <label for="to-date">Desde:</label>
-                <input type="text" id="startInput" placeholder="Fecha inicial" readonly />
-                <div id="startPopup" class="date-popup">
+            <div class="filter-item-group">
+                <div class="filter-item">
+                    <label for="to-date">Desde:</label>
+                    <input type="text" id="startInput" placeholder="Fecha inicial" readonly />
+                    <div id="startPopup" class="date-popup">
+                    </div>
                 </div>
-            </div>
-            <div class="filter-item">
-
-                <label for="to-date">Hasta:</label>
-                <input type="text" id="endInput" placeholder="Fecha final" readonly />
-                <div id="endPopup" class="date-popup">
+                <div class="filter-item">
+    
+                    <label for="to-date">Hasta:</label>
+                    <input type="text" id="endInput" placeholder="Fecha final" readonly />
+                    <div id="endPopup" class="date-popup">
+                    </div>
+    
                 </div>
-
-            </div>
-            <div class="filter-item">
-                <label for="player">Jugador:</label>
-                <select title="jugador" id="selectState">
-                    <option>Jugador 1</option>
-                    <option>Jugador 2</option>
-                </select>
+                <div class="filter-item">
+                    <label for="player">Jugador:</label>
+                    <select title="jugador" id="selectState">
+                        <option>Jugador 1</option>
+                        <option>Jugador 2</option>
+                    </select>
+                </div>
             </div>
             <div class="apply-button">
                 <button>Aplicar</button>

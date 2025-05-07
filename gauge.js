@@ -34,12 +34,18 @@ function createGaugeChart({ containerId, title, value }) {
     defaultSeries: {
       type: 'gauge column roundcaps',
       shape: {
-        label: {
+        label: [{
           text: '%max',
           align: 'center',
           verticalAlign: 'middle',
           style_fontSize: 28
-        }
+        },
+        {
+          verticalAlign: 'bottom',
+          text: 'Tiempo promedio (s)',
+          style: { fontSize: 13 }
+        },
+        ]
       }
     },
     series: [
@@ -56,7 +62,8 @@ function createGaugeChart({ containerId, title, value }) {
             { value: [700, 850], color: '#D32F2F' },
           ]
         },
-        points: [['x', [350, value]]]
+        points: [['x', [350, value]]],
+
       }
     ]
   });
