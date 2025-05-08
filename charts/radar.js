@@ -1,5 +1,5 @@
-function createRadarChart({ containerId, title, radarData }) {
-  var palette = ['#3F51B5', '#00BCD4'];
+export function createRadarChart({ containerId, title, radarData }) {
+  var palette = ['#00BCD4', '#3F51B5'];
 
   const chart = JSC.chart(containerId, {
     type: 'radar polar area',
@@ -28,12 +28,12 @@ function createRadarChart({ containerId, title, radarData }) {
 
 
   function makeSeries() {
-    player1Data = radarData.data[0];
-    player2Data = radarData.data[1];
+    const player1Data = radarData.data[0];
+    const player2Data = radarData.data[1];
 
     return [
       {
-        name: player1Data.Player,
+        name: player1Data.Name,
         id: 'Player 1',
         shape_fill: ['#B0BEC5', 0.5],
         points: [
@@ -55,7 +55,7 @@ function createRadarChart({ containerId, title, radarData }) {
         ]
       },
       {
-        name: player2Data.Player,
+        name: player2Data.Name,
         id: 'Player 2',
         shape_fill: ['#B0BEC5', 0.5],
         points: [
@@ -80,19 +80,22 @@ function createRadarChart({ containerId, title, radarData }) {
   }
 
   function normalizeValue(data, value) {
-    return data[value] / radarData.maxValues[value];
+    return formatNumber(data[value]) / radarData.maxValues[value];
   }
   function makeTicks(player1Data, player2Data, type) {
+    const player1Value = formatNumber(player1Data[type])
+    const player2Value = formatNumber(player2Data[type])
+
     return (
       '<span style="color:' +
       palette[0] +
       '; font-size:14px"><b>' +
-      player1Data[type] +
+      player1Value +
       '</b></span><span style="color:#E0E0E0; width:8px; align:center">/</span>' +
       '<span style="color:' +
       palette[1] +
       '; font-size:14px"><b>' +
-      player2Data[type] +
+      player2Value +
       '</b></span><br><span style="color:#424242">' +
       type +
       '</span>'
@@ -101,36 +104,24 @@ function createRadarChart({ containerId, title, radarData }) {
 
   function makePlayersArray(data) {
     return data.map(function (a) {
-      return a.Player;
+      return a.Name;
     });
+  }
+
+  function formatNumber(number) {
+    if (!number || isNaN(number)) {
+      return 0;
+    }
+
+    if (Number.isInteger(number)) {
+      return number;
+    } else {
+      return Math.round(number * 10) / 10;
+    }
   }
 
   return chart;
 }
-
-var gaugeData = {
-  maxValues: {
-    "MOT": 1,
-    "RT": 1,
-    "VP": 1,
-  },
-  data: [
-    {
-      "Player": "Primera Division",
-      "MOT": 1,
-      "RT": 1,
-      "VP": 1,
-    },
-    {
-      "Player": "Jugador 1",
-      "MOT": 0.7,
-      "RT": 1,
-      "VP": 0,
-    }
-  ]
-}
-
-const radarChart = createRadarChart({ containerId: "radarDiv", radarData: gaugeData })
 
 
 

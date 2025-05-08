@@ -1,4 +1,4 @@
-function createLineChart({ containerId, title, lineData }) {
+export function createLineChart({ containerId, title, lineData }) {
     const chart = JSC.chart(containerId, {
         debug: true,
         type: 'line',
@@ -34,40 +34,5 @@ function createLineChart({ containerId, title, lineData }) {
     return chart
 }
 
-const lineData = [
-    {
-        name: "Primera Division",
-        data: [
-            { x: 1, y: 19 },
-            { x: 2, y: 20 },
-            { x: 3, y: 21 },
-            { x: 4, y: 21 },
-            { x: 5, y: 21 },
-            { x: 6, y: 21 },
-            { x: 7, y: 21 },
-            { x: 8, y: 20 },
-            { x: 9, y: 21 },
-            { x: 10, y: 20 },
-            { x: 11, y: 20 },
-        ]
-    },
-    {
-        name: "Jugador 1",
-        data: [
-            { x: 1, y: 21 },
-            { x: 2, y: 21 },
-            { x: 3, y: 22 },
-            { x: 4, y: 22 },
-            { x: 5, y: 22 },
-            { x: 6, y: 22 },
-            { x: 7, y: 21 },
-            { x: 8, y: 19 },
-            { x: 9, y: 19 },
-            { x: 10, y: 19 },
-            { x: 11, y: 18 },
-        ]
-    },
-]
 
-const lineChart = createLineChart({ containerId: "lineDiv", lineData: lineData })
 

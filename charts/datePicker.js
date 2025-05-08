@@ -1,4 +1,4 @@
-function createCalendarChart(containerId, inputId) {
+export function createCalendarChart({ containerId, inputId }) {
     const months = [
         'January', 'February', 'March', 'April', 'May', 'June',
         'July', 'August', 'September', 'October', 'November', 'December'
@@ -110,5 +110,4 @@ function createCalendarChart(containerId, inputId) {
     return chart;
 }
 
-const datePicker1 = createCalendarChart("startPopup", "startInput")
-const datePicker2 = createCalendarChart("endPopup", "endInput")
+

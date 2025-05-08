@@ -1,4 +1,10 @@
-function createGaugeChart({ containerId, title, value }) {
+const min = 0;
+const max = 1000
+const delta = 30;
+
+export function createGaugeChart({ containerId, title, center, value }) {
+  const centerI = Math.round(center * 1) / 1
+
   var chart = JSC.chart(containerId, {
     debug: false,
     legend_visible: false,
@@ -18,7 +24,7 @@ function createGaugeChart({ containerId, title, value }) {
           padding: 10,
           enabled: false
         },
-        customTicks: [350, 600, 700, 850],
+        customTicks: [min, centerI - delta, centerI + delta, max],
         line: {
           width: 10,
 
@@ -28,7 +34,7 @@ function createGaugeChart({ containerId, title, value }) {
           /*Palette is defined at series level with an ID referenced here.*/
           color: 'smartPalette:pal1'
         },
-        scale_range: [350, 850]
+        scale_range: [min, max]
       }
     ],
     defaultSeries: {
@@ -51,25 +57,21 @@ function createGaugeChart({ containerId, title, value }) {
     series: [
       {
         type: 'column roundcaps',
-        name: 'Temperatures',
+        name: 'Tiempo',
         yAxis: 'ax1',
         palette: {
           id: 'pal1',
           pointValue: '%yValue',
           ranges: [
-            { value: 350, color: '#26A69A' },
-            { value: 600, color: '#FFB74D' },
-            { value: [700, 850], color: '#D32F2F' },
+            { value: [min, centerI - delta], color: '#26A69A' },
+            { value: [centerI - delta, centerI + delta], color: '#FFB74D' },
+            { value: [centerI + delta, max], color: '#D32F2F' },
           ]
         },
-        points: [['x', [350, value]]],
-
+        points: [['x', [min, value ? value : 0]]]
       }
     ]
   });
   return chart
 }
 
-const gaugeChart1 = createGaugeChart({ containerId: "gauge1Div", title: 'Gonogo', value: 560 })
-const gaugeChart2 = createGaugeChart({ containerId: "gauge2Div", title: 'Simple', value: 620 })
-const gaugeChart3 = createGaugeChart({ containerId: "gauge3Div", title: 'Stroop', value: 710 })
