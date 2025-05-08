@@ -14,32 +14,32 @@
 <body>
     <div class="container">
         <!-- Filter Bar -->
-        <div class="filter-bar">
+        <form id="filter-form" class="filter-bar">
             <div class="filter-item">
                 <label for="to-date">Desde:</label>
-                <input type="text" id="startInput" placeholder="Fecha inicial" readonly />
-                <div id="startPopup" class="date-popup">
+                <input type="text" id="startDateInput" placeholder="Fecha inicial" value="01-01-2020" readonly />
+                <div id="startDatePopup" class="date-popup">
                 </div>
             </div>
             <div class="filter-item">
 
                 <label for="to-date">Hasta:</label>
-                <input type="text" id="endInput" placeholder="Fecha final" readonly />
-                <div id="endPopup" class="date-popup">
+                <input type="text" id="endDateInput" placeholder="Fecha final" value="01-01-2026" readonly />
+                <div id="endDatePopup" class="date-popup">
                 </div>
 
             </div>
             <div class="filter-item">
                 <label for="player">Jugador:</label>
-                <select title="jugador" id="selectState">
+                <select title="jugador" id="userSelect">
                     <option>Jugador 1</option>
                     <option>Jugador 2</option>
                 </select>
             </div>
             <div class="apply-button">
-                <button>Aplicar</button>
+                <button type="submit">Aplicar</button>
             </div>
-        </div>
+        </form>
 
         <div class="content">
             <div class="card">
@@ -72,12 +72,7 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="./radar.js"></script>
-    <script type="text/javascript" src="./bars.js"></script>
-    <script type="text/javascript" src="./gauge.js"></script>
-    <script type="text/javascript" src="./line.js"></script>
-    <script type="text/javascript" src="./datePicker.js"></script>
-    <script type="text/javascript" src="./datePopup.js"></script>
+    <script type="module" src="./dashboard.js"></script>
 
 </body>
 

@@ -1,4 +1,4 @@
-function createBarsChart({ containerId, title, barsData }) {
+export function createBarsChart({ containerId, title, barsData }) {
     const chart = JSC.chart(containerId, {
         debug: false,
         type: 'column',
@@ -30,16 +30,3 @@ function createBarsChart({ containerId, title, barsData }) {
 
     return chart;
 }
-
-const barsData = [
-    {
-        name: 'Primera Division',
-        y: 8,
-    },
-    {
-        name: 'Jugador 1',
-        y: 2,
-    }
-]
-
-const barsChart = createBarsChart({ containerId: 'barsDiv', barsData: barsData })
