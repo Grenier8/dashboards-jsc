@@ -15,11 +15,12 @@ h2 {
     flex-wrap: wrap;
 }
 
-.filter-item-group{
-    gap:50px;
+.filter-item-group {
+    gap: 50px;
     width: 100%;
     display: flex;
     flex: 2;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
 }
@@ -46,7 +47,7 @@ select {
     background-color: #fff;
     transition: border 0.2s ease;
     font-size: 14px;
-    width: 160px;
+    width: auto;
 }
 
 input[type="text"]:focus,
@@ -60,7 +61,7 @@ select:focus {
 }
 
 .apply-button {
-    flex:1;
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;

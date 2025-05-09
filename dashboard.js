@@ -12,7 +12,6 @@ const userDropdown = document.getElementById("userSelect");
 
 const initiateUserSelect = async () => {
     const userSelect = document.getElementById(userDropdown.id);
-    userSelect.innerHTML = '';
 
     const users = await getUsersByTenant(tenantId);
     const sortedUsers = users.sort((a, b) => {
@@ -27,6 +26,7 @@ const initiateUserSelect = async () => {
         option.textContent = user.Nombre;
         userSelect.appendChild(option);
     });
+    userSelect.value = '';
 }
 
 const initiateDatePickers = () => {
