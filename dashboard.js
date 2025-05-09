@@ -70,7 +70,7 @@ const handleSubmit = async () => {
 
     ChartCreator.radarChart({ containerId: "radarDiv", summaryData: await getRadarInfo(startDate, endDate, userId, tenantId) });
     ChartCreator.motChart({ containerId: 'barsDiv', motData: await getMOTInfo(startDate, endDate, userId, tenantId) })
-    ChartCreator.pvChart({ containerId: "lineDiv", pvData: await getPVInfo(startDate, endDate, userId, tenantId) })
+    ChartCreator.pvChart2({ containerId: "lineDiv", pvData: await getPVInfo(startDate, endDate, userId, tenantId) })
     ChartCreator.allRTCharts({ containerIds: ["gauge1Div", "gauge2Div", "gauge3Div"], allRTData: await getRTInfo(startDate, endDate, userId, tenantId) })
 }
 

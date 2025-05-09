@@ -2,15 +2,16 @@ const min = 0;
 const max = 1000
 const delta = 30;
 
-export function createGaugeChart({ containerId, title, center, value }) {
-  const centerI = Math.round(center * 1) / 1
+export function createGaugeChart({ containerId, gaugeData }) {
+  const centerI = Math.round(gaugeData.center * 1) / 1
+  const value = Math.round(gaugeData.value * 1) / 1
 
   var chart = JSC.chart(containerId, {
     debug: false,
     legend_visible: false,
     defaultTooltip_enabled: false,
     title: {
-      label_text: title ? title : "",
+      label_text: gaugeData.title ? gaugeData.title : "",
       position: 'center',
     },
     title_label: {

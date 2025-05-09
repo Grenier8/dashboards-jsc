@@ -1,5 +1,5 @@
 import { createCalendarChart } from "./datePicker.js";
-import { createBarsChart } from "./bars.js";
+import { createBarsChart, createGroupedBarsChart } from "./bars.js";
 import { createGaugeChart } from "./gauge.js";
 import { createLineChart } from "./line.js";
 import { createRadarChart } from "./radar.js";
@@ -10,7 +10,7 @@ export function datePickerChart(containerId, inputId) {
 
 export function radarChart({ containerId, summaryData }) {
     if (!summaryData) {
-        document.getElementById(containerId).innerHTML = "No hay datos para este jugador"
+        setNoDataText(containerId)
         return;
     }
 
@@ -41,18 +41,18 @@ export function radarChart({ containerId, summaryData }) {
 
 export function motChart({ containerId, motData }) {
     if (!motData) {
-        document.getElementById(containerId).innerHTML = "No hay datos para este jugador"
+        setNoDataText(containerId)
         return;
     }
 
     const barsData = [
         {
-            name: motData[0].CategoriaNombre,
-            y: motData[0].TotalMOT,
-        },
-        {
             name: motData[0].NombreCompleto,
             y: motData[0].TotalUserMot,
+        },
+        {
+            name: 'Primera',
+            y: motData[0].TotalMOT,
         }
     ]
 
@@ -61,7 +61,7 @@ export function motChart({ containerId, motData }) {
 
 export function pvChart({ containerId, pvData }) {
     if (!pvData) {
-        document.getElementById(containerId).innerHTML = "No hay datos para este jugador"
+        setNoDataText(containerId)
         return;
     }
 
@@ -86,6 +86,36 @@ export function pvChart({ containerId, pvData }) {
 
 }
 
+export function pvChart2({ containerId, pvData }) {
+    if (!pvData) {
+        setNoDataText(containerId)
+        return;
+    }
+    const userPoints = Object.values(JSON.parse(pvData[0].JsonPoints)[0]);
+    const allUsersPoints = Object.values(JSON.parse(pvData[1].JsonPoints)[0]);
+
+    const barsData = {
+        xAxisTitle: 'Número de pelota',
+        categories: Array.from({ length: Math.max(userPoints.length, allUsersPoints.length) }, (_, i) => `${i + 1}`),
+        yAxisTitle: 'Tiempo en el aire (s)',
+        series: [
+            {
+                name: pvData[0].NombreCompleto,
+                points: Object.values(JSON.parse(pvData[0].JsonPoints)[0]),
+                color: '#00BCD4',
+            },
+            {
+                name: 'Primera',
+                points: Object.values(JSON.parse(pvData[1].JsonPoints)[0]),
+                color: '#3F51B5',
+            }
+        ]
+    }
+
+    createGroupedBarsChart({ containerId, groupedBarsData: barsData })
+
+}
+
 export function allRTCharts({ containerIds, allRTData }) {
     rtChart({ containerId: containerIds[0], rtData: [allRTData[0], allRTData[1]] });
     rtChart({ containerId: containerIds[1], rtData: [allRTData[2], allRTData[3]] });
@@ -93,14 +123,25 @@ export function allRTCharts({ containerIds, allRTData }) {
 }
 
 function rtChart({ containerId, rtData }) {
-    if (!rtChart) {
-        document.getElementById(containerId).innerHTML = "No hay datos para este jugador"
+    if (!rtData) {
+        setNoDataText(containerId)
         return;
     }
 
-    const title = rtData[0].Modo.charAt(0).toUpperCase() + rtData[0].Modo.slice(1);
-    const center = rtData[1].Score;
-    const value = rtData[0].Score;
+    const gaugeData = {
+        title: rtData[0].Modo.charAt(0).toUpperCase() + rtData[0].Modo.slice(1),
+        center: rtData[1].Score,
+        value: rtData[0].Score
+    }
 
-    createGaugeChart({ containerId, title, center, value })
+    createGaugeChart({ containerId, gaugeData })
+}
+
+function setNoDataText(containerId) {
+    const heading = document.createElement("h4");
+    heading.textContent = "No hay datos para este jugador"
+
+    const container = document.getElementById(containerId);
+    container.innerHTML = '';
+    container.appendChild(heading)
 }
