@@ -12,8 +12,6 @@ export function createLineChart({ containerId, lineData }) {
             style_fontSize: 17
         },
         xAxis: {
-            crosshair_enabled: true,
-            scale: { type: 'linear', interval: 1 },
             label_text: lineData.xAxisTitle
         },
         yAxis: {
@@ -34,5 +32,27 @@ export function createLineChart({ containerId, lineData }) {
     return chart
 }
 
+export function createPointChart({ containerId, pointData }) {
+    var chart = JSC.chart(containerId, {
+        debug: false,
+        type: 'marker',
+        title_label: {
+            text: pointData.title ? pointData.title : "",
+            style_fontSize: 17
+        },
+        legend_visible: false,
+        defaultSeries: {
+            opacity: 0.7,
+            defaultPoint_marker: { size: 40 }
+        },
+        xAxis: {
+            label_text: pointData.xAxisTitle
+        },
+        yAxis: {
+            label_text: pointData.yAxisTitle,
+        },
+        series: pointData.data.map(ld => ({ defaultPoint_marker_type: 'circle', name: ld.name, points: ld.data, color: ld.color }))
+    })
 
-
+    return chart;
+}

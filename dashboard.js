@@ -71,7 +71,7 @@ const handleSubmit = async () => {
 
     ChartCreator.radarChart({ containerId: "radarDiv", summaryData: await getRadarInfo(startDate, endDate, userId, tenantId), userName, categoryName: "Primera" });
     ChartCreator.motChart({ containerId: 'barsDiv', motData: await getMOTInfo(startDate, endDate, userId, tenantId), categoryName: "Primera" })
-    ChartCreator.pvChart2({ containerId: "lineDiv", pvData: await getPVInfo(startDate, endDate, userId, tenantId), categoryName: "Primera" })
+    ChartCreator.pvChart3({ containerId: "lineDiv", pvData: await getPVInfo(startDate, endDate, userId, tenantId), categoryName: "Primera" })
     ChartCreator.allRTCharts({ containerIds: ["gauge1Div", "gauge2Div", "gauge3Div"], allRTData: await getRTInfo(startDate, endDate, userId, tenantId) })
 }
 
@@ -81,8 +81,8 @@ const handleSubmit = async () => {
 const tenantId = 17;
 await initiateUserSelect(17);
 initiateDatePickers();
-// ChartCreator.datePickerChart(startPopup.id, startInput.id)
-// ChartCreator.datePickerChart(endPopup.id, endInput.id)
+ChartCreator.datePickerChart(startPopup.id, startInput.id)
+ChartCreator.datePickerChart(endPopup.id, endInput.id)
 
 document.getElementById("filter-form").addEventListener("submit", function (event) {
     event.preventDefault();

@@ -43,10 +43,10 @@ export function createGaugeChart({ containerId, gaugeData }) {
       type: 'gauge column roundcaps',
       shape: {
         label: [{
-          text: '%max',
+          text: '%maxs',
           align: 'center',
           verticalAlign: 'middle',
-          style_fontSize: 28
+          style_fontSize: 40
         },
         ...(gaugeData.xAxisTitle ? [
           {

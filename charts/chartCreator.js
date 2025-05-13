@@ -3,6 +3,7 @@ import { createBarsChart, createGroupedBarsChart } from "./bars.js";
 import { createGaugeChart } from "./gauge.js";
 import { createLineChart } from "./line.js";
 import { createRadarChart } from "./radar.js";
+import { createPointChart } from "./point.js";
 
 export function datePickerChart(containerId, inputId) {
     createCalendarChart({ containerId, inputId })
@@ -74,22 +75,29 @@ export function pvChart({ containerId, pvData }) {
         return;
     }
 
-    const lineData = [
-        {
-            name: pvData[0].NombreCompleto,
-            data: Object.values(JSON.parse(pvData[0].JsonPoints)[0]).map((y, index) => ({
-                x: index + 1,
-                y: y
-            }))
-        },
-        {
-            name: pvData[1].NombreCompleto,
-            data: Object.values(JSON.parse(pvData[1].JsonPoints)[0]).map((y, index) => ({
-                x: index + 1,
-                y: y
-            }))
-        },
-    ]
+    const lineData =
+    {
+        xAxisTitle: 'Pelota',
+        yAxisTitle: 'Tiempo en el aire (s)',
+        data: [
+            {
+                name: pvData[0].NombreCompleto,
+                data: Object.values(JSON.parse(pvData[0].JsonPoints)[0]).map((y, index) => ({
+                    x: String.fromCharCode(65 + index),
+                    y: y
+                })),
+                color: '#00BCD4',
+            },
+            {
+                name: pvData[1].CategoriaNombre == "" ? 'Primera' : pvData[1].CategoriaNombre,
+                data: Object.values(JSON.parse(pvData[1].JsonPoints)[0]).map((y, index) => ({
+                    x: String.fromCharCode(65 + index),
+                    y: y
+                })),
+                color: '#3F51B5',
+            },
+        ]
+    }
 
     createLineChart({ containerId, lineData })
 
@@ -126,6 +134,41 @@ export function pvChart2({ containerId, pvData, categoryName }) {
     }
 
     createGroupedBarsChart({ containerId, groupedBarsData: barsData })
+
+}
+
+export function pvChart3({ containerId, pvData }) {
+    if (!pvData) {
+        setNoDataText(containerId)
+        return;
+    }
+
+    const pointData =
+    {
+        xAxisTitle: 'Pelota',
+        yAxisTitle: 'Tiempo en el aire (s)',
+        data: [
+            {
+                name: pvData[0].NombreCompleto,
+                data: Object.values(JSON.parse(pvData[0].JsonPoints)[0]).map((y, index) => ({
+                    x: String.fromCharCode(65 + index),
+                    y: y
+                })),
+                color: '#00BCD4',
+            },
+            {
+                name: pvData[1].CategoriaNombre == "" ? 'Primera' : pvData[1].CategoriaNombre,
+                data: Object.values(JSON.parse(pvData[1].JsonPoints)[0]).map((y, index) => ([
+                    String.fromCharCode(65 + index),
+                    y
+                ]
+                )),
+                color: '#3F51B5',
+            },
+        ]
+    }
+
+    createPointChart({ containerId, pointData })
 
 }
 
