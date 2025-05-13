@@ -8,7 +8,7 @@ export function datePickerChart(containerId, inputId) {
     createCalendarChart({ containerId, inputId })
 }
 
-export function radarChart({ containerId, summaryData }) {
+export function radarChart({ containerId, summaryData, userName, categoryName }) {
     if (!summaryData) {
         setNoDataText(containerId)
         return;
@@ -22,13 +22,13 @@ export function radarChart({ containerId, summaryData }) {
         },
         data: [
             {
-                "Name": "Usuario",
+                "Name": userName,
                 "MOT": summaryData[0].MOT,
                 "RT": summaryData[0].RT,
                 "VP": summaryData[0].PV,
             },
             {
-                "Name": "Primera",
+                "Name": categoryName,
                 "MOT": summaryData[1].MOT,
                 "RT": summaryData[1].RT,
                 "VP": summaryData[1].PV,
@@ -39,22 +39,31 @@ export function radarChart({ containerId, summaryData }) {
     createRadarChart({ containerId, radarData })
 }
 
-export function motChart({ containerId, motData }) {
+export function motChart({ containerId, motData, categoryName }) {
     if (!motData) {
         setNoDataText(containerId)
         return;
     }
 
-    const barsData = [
-        {
-            name: motData[0].NombreCompleto,
-            y: motData[0].TotalUserMot,
+    const barsData = {
+        yAxisTitle: 'Puntos',
+        defaultPoint: {
+            tooltip:
+                `Promedio de puntos obtenidos<br>por <span style="color: %color">%name</span>`,
         },
-        {
-            name: 'Primera',
-            y: motData[0].TotalMOT,
-        }
-    ]
+        series: [
+            {
+                name: motData[0].NombreCompleto,
+                values: motData[0].TotalUserMot,
+                color: '#00BCD4',
+            },
+            {
+                name: motData[0].CategoriaNombre == "" ? categoryName : motData[0].CategoriaNombre,
+                values: motData[0].TotalMOT,
+                color: '#3F51B5',
+            }
+        ]
+    }
 
     createBarsChart({ containerId, barsData })
 }
@@ -86,7 +95,7 @@ export function pvChart({ containerId, pvData }) {
 
 }
 
-export function pvChart2({ containerId, pvData }) {
+export function pvChart2({ containerId, pvData, categoryName }) {
     if (!pvData) {
         setNoDataText(containerId)
         return;
@@ -101,15 +110,19 @@ export function pvChart2({ containerId, pvData }) {
         series: [
             {
                 name: pvData[0].NombreCompleto,
-                points: Object.values(JSON.parse(pvData[0].JsonPoints)[0]),
+                values: Object.values(JSON.parse(pvData[0].JsonPoints)[0]),
                 color: '#00BCD4',
             },
             {
-                name: 'Primera',
-                points: Object.values(JSON.parse(pvData[1].JsonPoints)[0]),
+                name: categoryName,
+                values: Object.values(JSON.parse(pvData[1].JsonPoints)[0]),
                 color: '#3F51B5',
             }
-        ]
+        ],
+        defaultPoint: {
+            tooltip:
+                `Número de pelota: <b>%xValue</b><br>Tiempo en el aire: <b>%yValue s</b>`,
+        },
     }
 
     createGroupedBarsChart({ containerId, groupedBarsData: barsData })
@@ -118,11 +131,11 @@ export function pvChart2({ containerId, pvData }) {
 
 export function allRTCharts({ containerIds, allRTData }) {
     rtChart({ containerId: containerIds[0], rtData: [allRTData[0], allRTData[1]] });
-    rtChart({ containerId: containerIds[1], rtData: [allRTData[2], allRTData[3]] });
+    rtChart({ containerId: containerIds[1], rtData: [allRTData[2], allRTData[3]], showScale: true });
     rtChart({ containerId: containerIds[2], rtData: [allRTData[4], allRTData[5]] });
 }
 
-function rtChart({ containerId, rtData }) {
+function rtChart({ containerId, rtData, showScale }) {
     if (!rtData) {
         setNoDataText(containerId)
         return;
@@ -130,8 +143,31 @@ function rtChart({ containerId, rtData }) {
 
     const gaugeData = {
         title: rtData[0].Modo.charAt(0).toUpperCase() + rtData[0].Modo.slice(1),
-        center: rtData[1].Score,
-        value: rtData[0].Score
+        data: [
+            {
+                name: rtData[0].NombreCompleto,
+                value: rtData[0].Score,
+                color: '#00BCD4',
+            },
+            {
+                name: rtData[1].CategoriaNombre == "" ? "Primera" : rtData[1].CategoriaNombre,
+                value: rtData[1].Score,
+                color: '#3F51B5',
+            }
+        ],
+        scale: [{
+            name: 'Mejor',
+            color: '#26A69A',
+        },
+        {
+            name: 'Similar',
+            color: '#FFB74D',
+        },
+        {
+            name: 'Peor',
+            color: '#D32F2F',
+        }],
+        showScale: showScale,
     }
 
     createGaugeChart({ containerId, gaugeData })

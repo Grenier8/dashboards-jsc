@@ -4,8 +4,11 @@ export function createRadarChart({ containerId, title, radarData }) {
   const chart = JSC.chart(containerId, {
     type: 'radar polar area',
     legend_visible: true,
+    chartArea: {
+      opacity: 0.5
+    },
     legend: {
-      position: "bottom",
+      position: "top",
       template: '%icon %name'
     },
     animation_duration: 500,
@@ -23,7 +26,17 @@ export function createRadarChart({ containerId, title, radarData }) {
     defaultSeries_mouseTracking_enabled: true,
     defaultPoint_marker: { type: 'circle', outline_width: 0 },
     series: makeSeries(),
-
+    annotations: [
+      {
+        label: {
+          text: `Rendimiento en los 3 juegos de <span style="color: #00BCD4;">${radarData.data[0].Name}</span> con respecto a <span style="color: #3F51B5;">${radarData.data[1].Name}</span>`,
+          style_fontSize: 16,
+          style_color: '#424242',
+          align: 'center',
+        },
+        position: 'bottom center',
+      }
+    ]
   });
 
 

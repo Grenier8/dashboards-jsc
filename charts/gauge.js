@@ -3,8 +3,9 @@ const max = 1000
 const delta = 30;
 
 export function createGaugeChart({ containerId, gaugeData }) {
-  const centerI = Math.round(gaugeData.center * 1) / 1
-  const value = Math.round(gaugeData.value * 1) / 1
+
+  const centerI = Math.round(gaugeData.data[1].value * 1) / 1
+  const value = Math.round(gaugeData.data[0].value * 1) / 1
 
   var chart = JSC.chart(containerId, {
     debug: false,
@@ -47,11 +48,14 @@ export function createGaugeChart({ containerId, gaugeData }) {
           verticalAlign: 'middle',
           style_fontSize: 28
         },
-        {
-          verticalAlign: 'bottom',
-          text: 'Tiempo promedio (s)',
-          style: { fontSize: 13 }
-        },
+        ...(gaugeData.xAxisTitle ? [
+          {
+            verticalAlign: 'bottom',
+            text: gaugeData.xAxisTitle ? gaugeData.xAxisTitle : "",
+            style: { fontSize: 13 }
+          },
+        ] : [])
+
         ]
       }
     },
@@ -64,12 +68,27 @@ export function createGaugeChart({ containerId, gaugeData }) {
           id: 'pal1',
           pointValue: '%yValue',
           ranges: [
-            { value: [min, centerI - delta], color: '#26A69A' },
-            { value: [centerI - delta, centerI + delta], color: '#FFB74D' },
-            { value: [centerI + delta, max], color: '#D32F2F' },
+            { value: [min, centerI - delta], color: gaugeData.scale[0].color },
+            { value: [centerI - delta, centerI + delta], color: gaugeData.scale[1].color },
+            { value: [centerI + delta, max], color: gaugeData.scale[2].color },
           ]
         },
         points: [['x', [min, value ? value : 0]]]
+      }
+    ],
+    annotations: !gaugeData.showScale ? [] : [
+      {
+        label: {
+          text: `Tiempo de reacción de <span style="color: ${gaugeData.data[0].color};">${gaugeData.data[0].name}</span> con respecto a <span style="color: ${gaugeData.data[1].color}">${gaugeData.data[1].name}</span><br>
+                 <span style="color: ${gaugeData.scale[0].color};">●</span> ${gaugeData.scale[0].name} 
+                 <span style="color: ${gaugeData.scale[1].color};">●</span> ${gaugeData.scale[1].name} 
+                 <span style="color: ${gaugeData.scale[2].color};">●</span> ${gaugeData.scale[2].name}`,
+          style_fontSize: 14,
+          style_color: '#424242',
+          align: 'center',
+        },
+        position: 'bottom center',
+        margin: 10,
       }
     ]
   });

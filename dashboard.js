@@ -64,13 +64,14 @@ const initiateDatePickers = () => {
 }
 
 const handleSubmit = async () => {
-    const startDate = document.getElementById(startInput.id).value;
-    const endDate = document.getElementById(endInput.id).value;
-    const userId = document.getElementById(userDropdown.id).value;
+    const startDate = startInput.value
+    const endDate = endInput.value;
+    const userId = userDropdown.value;
+    const userName = userDropdown.options[userDropdown.selectedIndex].textContent;
 
-    ChartCreator.radarChart({ containerId: "radarDiv", summaryData: await getRadarInfo(startDate, endDate, userId, tenantId) });
-    ChartCreator.motChart({ containerId: 'barsDiv', motData: await getMOTInfo(startDate, endDate, userId, tenantId) })
-    ChartCreator.pvChart2({ containerId: "lineDiv", pvData: await getPVInfo(startDate, endDate, userId, tenantId) })
+    ChartCreator.radarChart({ containerId: "radarDiv", summaryData: await getRadarInfo(startDate, endDate, userId, tenantId), userName, categoryName: "Primera" });
+    ChartCreator.motChart({ containerId: 'barsDiv', motData: await getMOTInfo(startDate, endDate, userId, tenantId), categoryName: "Primera" })
+    ChartCreator.pvChart2({ containerId: "lineDiv", pvData: await getPVInfo(startDate, endDate, userId, tenantId), categoryName: "Primera" })
     ChartCreator.allRTCharts({ containerIds: ["gauge1Div", "gauge2Div", "gauge3Div"], allRTData: await getRTInfo(startDate, endDate, userId, tenantId) })
 }
 

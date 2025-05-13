@@ -13,17 +13,14 @@ export function createBarsChart({ containerId, barsData }) {
             spacingPercentage: 0.6
         },
         yAxis: {
-            label_text: "Puntos",
+            label_text: barsData.yAxisTitle,
         },
         series: [
             {
-                defaultPoint: {
-                    tooltip:
-                        '<b>%yValue</b> of users have<br>access to <b>%name</b>',
-                },
-                name: 'Users with access',
-                palette: ['#00BCD4', '#3F51B5'],
-                points: barsData
+                defaultPoint: barsData.defaultPoint,
+                name: barsData.yAxisTitle,
+                palette: barsData.series.map(bd => bd.color),
+                points: barsData.series.map(bd => ({ name: bd.name, y: bd.values }))
             }
         ]
     });
@@ -52,7 +49,12 @@ export function createGroupedBarsChart({ containerId, title, groupedBarsData }) 
         yAxis: {
             label_text: groupedBarsData.yAxisTitle,
         },
-        series: groupedBarsData.series
+        series: groupedBarsData.series.map(bd => ({
+            defaultPoint: groupedBarsData.defaultPoint,
+            name: bd.name,
+            points: bd.values,
+            color: bd.color,
+        }))
     });
 
     return chart;
