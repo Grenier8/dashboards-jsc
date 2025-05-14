@@ -10,7 +10,6 @@ export function createGaugeChart({ containerId, gaugeData }) {
   var chart = JSC.chart(containerId, {
     debug: false,
     legend_visible: false,
-    defaultTooltip_enabled: false,
     title: {
       label_text: gaugeData.title ? gaugeData.title : "",
       position: 'center',
@@ -18,6 +17,11 @@ export function createGaugeChart({ containerId, gaugeData }) {
     title_label: {
       style_fontSize: 17
     },
+    // xAxis: {
+    //   defaultTick: {
+    //     label: { text: '%value', padding: -30, onTop: true, color: gaugeData.data[0].color },
+    //   },
+    // },
     xAxis_spacingPercentage: 0.4,
     yAxis: [
       {
@@ -26,12 +30,22 @@ export function createGaugeChart({ containerId, gaugeData }) {
           padding: 10,
           enabled: false
         },
-        customTicks: [min, centerI - delta, centerI + delta, max],
+        // customTicks: [min, centerI - delta, centerI + delta, max],
+        customTicks: [
+          {
+            value: centerI,
+            label: { text: `${gaugeData.data[1].name} - ${centerI}s`, style_fontSize: 15 },
+            label_color: gaugeData.data[1].color,
+
+          }
+        ],
         line: {
           width: 10,
 
           /*Defining the option will enable it.*/
-          breaks: {},
+          breaks: {
+            custom: [(centerI - delta) / max, (centerI + delta) / max],
+          },
 
           /*Palette is defined at series level with an ID referenced here.*/
           color: 'smartPalette:pal1'
@@ -41,12 +55,22 @@ export function createGaugeChart({ containerId, gaugeData }) {
     ],
     defaultSeries: {
       type: 'gauge column roundcaps',
+      defaultPoint_tooltip:
+        getTooltipText(gaugeData, centerI, value),
       shape: {
         label: [{
-          text: '%maxs',
+          text: `%maxs<br>`,
           align: 'center',
           verticalAlign: 'middle',
-          style_fontSize: 40
+          style_fontSize: 30
+        },
+        {
+          text: gaugeData.data[0].name,
+          color: gaugeData.data[0].color,
+          align: 'center',
+          verticalAlign: 'middle',
+          margin: [8, 0, 0, 0],
+          style_fontSize: 15
         },
         ...(gaugeData.xAxisTitle ? [
           {
@@ -73,7 +97,7 @@ export function createGaugeChart({ containerId, gaugeData }) {
             { value: [centerI + delta, max], color: gaugeData.scale[2].color },
           ]
         },
-        points: [['x', [min, value ? value : 0]]]
+        points: [[gaugeData.data[0].name, [min, value ? value : 0]]]
       }
     ],
     annotations: !gaugeData.showScale ? [] : [
@@ -95,3 +119,8 @@ export function createGaugeChart({ containerId, gaugeData }) {
   return chart
 }
 
+function getTooltipText(gaugeData, center, value) {
+  const symbol = value < center - delta ? '<' : value > center + delta ? '>' : '~'
+  const comparisonText = value < center - delta ? `<span style="color: ${gaugeData.scale[0].color};">● ${gaugeData.scale[0].name}</span>` : value > center + delta ? `<span style="color: ${gaugeData.scale[2].color};">● ${gaugeData.scale[2].name}</span>` : `<span style="color: ${gaugeData.scale[1].color};">● ${gaugeData.scale[1].name}</span>`
+  return `${comparisonText}<br><span style="color: ${gaugeData.data[0].color};">${gaugeData.data[0].name}</span> - ${value} ${symbol} ${center} - <span style="color: ${gaugeData.data[1].color};">${gaugeData.data[1].name}</span>`
+}

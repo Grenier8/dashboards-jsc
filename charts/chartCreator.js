@@ -155,6 +155,11 @@ export function pvChart3({ containerId, pvData }) {
                     y: y
                 })),
                 color: '#00BCD4',
+                figure: 'circle',
+                defaultPoint: {
+                    tooltip:
+                        `<span style="color: %color;">${pvData[0].NombreCompleto}</span><br>Pelota: <b>%xValue</b><br>Tiempo en el aire: <b>%yValue s</b>`,
+                },
             },
             {
                 name: pvData[1].CategoriaNombre == "" ? 'Primera' : pvData[1].CategoriaNombre,
@@ -164,8 +169,14 @@ export function pvChart3({ containerId, pvData }) {
                 ]
                 )),
                 color: '#3F51B5',
+                figure: 'circle',
+                defaultPoint: {
+                    tooltip:
+                        `<span style="color: %color;">${pvData[1].CategoriaNombre == "" ? 'Primera' : pvData[1].CategoriaNombre}</span><br>Pelota: <b>%xValue</b><br>Tiempo en el aire: <b>%yValue s</b>`,
+                },
             },
-        ]
+        ],
+
     }
 
     createPointChart({ containerId, pointData })
@@ -173,6 +184,7 @@ export function pvChart3({ containerId, pvData }) {
 }
 
 export function allRTCharts({ containerIds, allRTData }) {
+    console.log(allRTData)
     rtChart({ containerId: containerIds[0], rtData: [allRTData[0], allRTData[1]] });
     rtChart({ containerId: containerIds[1], rtData: [allRTData[2], allRTData[3]], showScale: true });
     rtChart({ containerId: containerIds[2], rtData: [allRTData[4], allRTData[5]] });
