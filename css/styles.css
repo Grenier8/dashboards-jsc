@@ -4,7 +4,8 @@ body {
     background: linear-gradient(135deg, #cbefff, #e9f7ef);
     /* background: linear-gradient(145deg, #f2f9fc, #eaf2f8); */
     /* background: linear-gradient(120deg, #e4f1ff, #fefefe); */
-
+    margin: 0;
+    padding: 0;
 }
 
 .container {
@@ -15,7 +16,9 @@ h2 {
     font-family: 'Spectral', sans-serif;
     font-size: 30px;
     font-weight: 28px;
-    margin-top: 10px;
+    margin: 0;
+    margin-top: 15px;
+    margin-bottom: 10px;
 }
 
 .header {
@@ -32,11 +35,47 @@ h2 {
     border-radius: 16px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06); */
 
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     margin-bottom: 20px;
+}
+
+.title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    margin-bottom: 15px;
+    padding: 0px 20px;
+    gap: 20px;
+}
+
+.title-container h1 {
+    margin: 0;
+    padding-top: 10px;
+}
+
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo-container h4 {
+    margin: 0;
+    font-family: 'Spectral', sans-serif;
+}
+
+.header-top-right-img {
+    position: absolute;
+    top: 10px;
+    right: 24px;
+    height: auto;
+    z-index: 2;
+    /* opacity: 0.7; */
 }
 
 .header h1 {
@@ -52,8 +91,8 @@ h2 {
     align-items: flex-start;
     flex-wrap: wrap;
     gap: 20px;
-    padding: 15px 20px;
-    width: 100%;
+    padding: 0px 0px 15px 0px;
+    width: 80%;
 }
 
 .filter-item-group {
@@ -62,7 +101,6 @@ h2 {
     gap: 20px;
     flex: 1 auto;
     align-items: center;
-    padding: 0px 50px;
 }
 
 .filter-item {
@@ -107,10 +145,12 @@ select:focus {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 12px;
+    padding-top: 22px;
+    margin-left: 50px;
 }
 
 .apply-button button {
+    width: 150px;
     background-color: #3b82f6;
     color: white;
     padding: 10px 18px;
@@ -247,8 +287,8 @@ select:focus {
 
 
 
-/* @media (max-width: 1200px) {
-    .filter-item-group {
-        gap: 10px;
+@media (max-width: 1156px) {
+    .apply-button {
+        margin-left: 0px;
     }
-} */
+}
