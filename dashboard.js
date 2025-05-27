@@ -1,5 +1,5 @@
 import * as ChartCreator from "./charts/chartCreator.js";
-import { getMOTInfo, getRadarInfo, getUsersByTenant, getPVInfo, getRTInfo } from "./service/service.js";
+import { getMOTInfo, getRadarInfo, getUsersByTenant, getPVInfo, getRTInfo, getRankingData } from "./service/service.js";
 
 //Varibles
 const startInput = document.getElementById("startDateInput");
@@ -79,15 +79,17 @@ const handleSubmit = async () => {
 
 //Setup
 const tenantId = 17;
-await initiateUserSelect(17);
-initiateDatePickers();
-ChartCreator.datePickerChart(startPopup.id, startInput.id)
-ChartCreator.datePickerChart(endPopup.id, endInput.id)
+// await initiateUserSelect(17);
+// initiateDatePickers();
+// ChartCreator.datePickerChart(startPopup.id, startInput.id)
+// ChartCreator.datePickerChart(endPopup.id, endInput.id)
 
-document.getElementById("filter-form").addEventListener("submit", function (event) {
-    event.preventDefault();
+// document.getElementById("filter-form").addEventListener("submit", function (event) {
+//     event.preventDefault();
 
-    handleSubmit();
-});
+//     handleSubmit();
+// });
 
-document.getElementById("startDateInput").value = "01-01-2020"
+// document.getElementById("startDateInput").value = "01-01-2020"
+
+ChartCreator.rankingChart({ containerId: 'rankingDiv', rankingData: getRankingData("2020-01-01", "2026-01-01", 0, tenantId)})

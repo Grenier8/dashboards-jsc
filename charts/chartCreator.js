@@ -69,6 +69,39 @@ export function motChart({ containerId, motData, categoryName }) {
     createBarsChart({ containerId, barsData })
 }
 
+export function rankingChart({ containerId, rankingData }) {
+    if (!rankingData) {
+        setNoDataText(containerId)
+        return;
+    }
+
+    const palette = [
+        "#A5A9E2",
+        "#F6B0C1",
+        "#FDC58B",
+        "#FAE183",
+        "#CDE7B0"
+    ]
+
+    const barsData = {
+        horizontal: true,
+        title: "Ranking General - Modalidad " + rankingData.modalidad,
+        defaultPoint: {
+            tooltip:
+                `%value - Puntos obtenidos<br>por <span style="color: %color">%name</span>`,
+        },
+        series: rankingData.data.map((bd) => ({
+            name: bd.name,
+            values: bd.value,
+            color: palette[rankingData.data.indexOf(bd)],
+        })),
+        onBarLabel: true,
+        xAxisSpacingPercentage: 0.4
+    }
+
+    createBarsChart({ containerId, barsData })
+}
+
 export function pvChart({ containerId, pvData }) {
     if (!pvData) {
         setNoDataText(containerId)

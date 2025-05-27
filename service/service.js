@@ -20,6 +20,34 @@ export async function getPVInfo(startDate, endDate, userId, tenantId) {
     return r;
 }
 
+export function getRankingData(startDate, endDate, userId, tenantId) {
+    return {
+        data:[
+            {
+                name: "Ivanna Parra",
+                value: 360
+            },
+            {
+                name: "Maria Tejeda",
+                value: 369
+            },
+            {
+                name: "Sofia Garcia",
+                value: 409
+            },
+            {
+                name: "Maria Agudelo",
+                value: 413
+            },
+            {
+                name: "Isabella Amado Diaz",
+                value: 415
+            }
+        ],
+        modalidad: "Simple"
+    }
+}
+
 const getDatabaseInfo = async (mode, startDate, endDate, userId, tenantId) => {
     try {
         const response = await fetch('http://dev.avattar.cl/api/RAADRPT/GetData', {
