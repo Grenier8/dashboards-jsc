@@ -48,6 +48,31 @@ export function getRankingData(startDate, endDate, userId, tenantId) {
     }
 }
 
+export function getBubbleData(startDate, endDate, userId, tenantId) {
+    return {
+        data:[
+            {
+                Modo: "Simple",
+                Valor: 424,
+                Min: 297,
+                Max: 665,
+            },
+            {
+                Modo: "Stroop",
+                Valor: 506,
+                Min: 382,
+                Max: 734,
+            },
+            {
+                Modo: "GoNoGo",
+                Valor: 452,
+                Min: 382,
+                Max: 714,
+            }
+        ],
+    }
+}
+
 const getDatabaseInfo = async (mode, startDate, endDate, userId, tenantId) => {
     try {
         const response = await fetch('http://dev.avattar.cl/api/RAADRPT/GetData', {

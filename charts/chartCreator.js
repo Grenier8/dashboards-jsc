@@ -4,6 +4,7 @@ import { createGaugeChart } from "./gauge.js";
 import { createLineChart } from "./line.js";
 import { createRadarChart } from "./radar.js";
 import { createPointChart } from "./point.js";
+import { createBubbleChart } from "./bubble.js";
 
 export function datePickerChart(containerId, inputId) {
     createCalendarChart({ containerId, inputId })
@@ -217,7 +218,6 @@ export function pvChart3({ containerId, pvData }) {
 }
 
 export function allRTCharts({ containerIds, allRTData }) {
-    console.log(allRTData)
     rtChart({ containerId: containerIds[0], rtData: [allRTData[0], allRTData[1]] });
     rtChart({ containerId: containerIds[1], rtData: [allRTData[2], allRTData[3]], showScale: true });
     rtChart({ containerId: containerIds[2], rtData: [allRTData[4], allRTData[5]] });
@@ -259,6 +259,16 @@ function rtChart({ containerId, rtData, showScale }) {
     }
 
     createGaugeChart({ containerId, gaugeData })
+}
+
+export function allBubbleCharts({ containerIds, allBubbleData }) {
+    bubbleChart({ containerId: containerIds[0], bubbleData: allBubbleData.data[0] });
+    bubbleChart({ containerId: containerIds[1], bubbleData: allBubbleData.data[1] });
+    bubbleChart({ containerId: containerIds[2], bubbleData: allBubbleData.data[2] });
+}
+
+export function bubbleChart({ containerId, bubbleData }) {
+    createBubbleChart({ containerId, bubbleData })
 }
 
 function setNoDataText(containerId) {

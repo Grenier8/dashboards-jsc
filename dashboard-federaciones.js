@@ -1,5 +1,5 @@
 import * as ChartCreator from "./charts/chartCreator.js";
-import { getMOTInfo, getRadarInfo, getUsersByTenant, getPVInfo, getRTInfo, getRankingData } from "./service/service.js";
+import { getMOTInfo, getRadarInfo, getUsersByTenant, getPVInfo, getRTInfo, getRankingData, getBubbleData } from "./service/service.js";
 
 //Varibles
 const startInput = document.getElementById("startDateInput");
@@ -93,4 +93,4 @@ const tenantId = 17;
 // document.getElementById("startDateInput").value = "01-01-2020"
 
 // ChartCreator.rankingChart({ containerId: 'rankingDiv', rankingData: getRankingData("2020-01-01", "2026-01-01", 0, tenantId)})
-ChartCreator.bubbleChart({ containerId: 'rankingDiv', bubbleData: {}})
+ChartCreator.allBubbleCharts({ containerIds: ["bubbleDiv1", "bubbleDiv2", "bubbleDiv3"], allBubbleData: getBubbleData("2020-01-01", "2026-01-01", 0, tenantId)})
