@@ -70,6 +70,12 @@ export function motChart({ containerId, motData, categoryName }) {
     createBarsChart({ containerId, barsData })
 }
 
+export function allRankingCharts({ containerIds, allRTData }) {
+    rankingChart({ containerId: containerIds[0], rankingData: allRTData[0] });
+    rtChart({ containerId: containerIds[1], rtData: [allRTData[2], allRTData[3]], showScale: true });
+    rtChart({ containerId: containerIds[2], rtData: [allRTData[4], allRTData[5]] });
+}
+
 export function rankingChart({ containerId, rankingData }) {
     if (!rankingData) {
         setNoDataText(containerId)

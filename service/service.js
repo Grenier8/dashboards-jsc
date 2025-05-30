@@ -24,27 +24,79 @@ export function getRankingData(startDate, endDate, userId, tenantId) {
     return {
         data:[
             {
-                name: "Ivanna Parra",
-                value: 360
-            },
-            {
-                name: "Maria Tejeda",
-                value: 369
-            },
-            {
-                name: "Sofia Garcia",
-                value: 409
-            },
-            {
-                name: "Maria Agudelo",
-                value: 413
-            },
-            {
-                name: "Isabella Amado Diaz",
-                value: 415
+                Modo:"Simple",
+                players:[
+                    {
+                        name: "Ivanna Parra",
+                        value: 425
+                    },
+                    {
+                        name: "Maria Agudelo",
+                        value: 443
+                    },
+                    {
+                        name: "Camila Cortes",
+                        value: 460
+                    },
+                    {
+                        name: "Maria Tejada",
+                        value: 464
+                    },
+                    {
+                        name: "Ella Grace Martinez",
+                        value: 489
+                    }
+                ]
+            },{
+                Modo:"Stroop",
+                players:[
+                    {
+                        name: "Ivanna Parra",
+                        value: 360
+                    },
+                    {
+                        name: "Maria Tejeda",
+                        value: 369
+                    },
+                    {
+                        name: "Sofia Garcia",
+                        value: 409
+                    },
+                    {
+                        name: "Maria Agudelo",
+                        value: 413
+                    },
+                    {
+                        name: "Isabella Amado Diaz",
+                        value: 415
+                    }
+                ]
+            },{
+                Modo:"GoNoGo",
+                players:[
+                    {
+                        name: "Ivanna Parra",
+                        value: 360
+                    },
+                    {
+                        name: "Maria Tejeda",
+                        value: 369
+                    },
+                    {
+                        name: "Sofia Garcia",
+                        value: 409
+                    },
+                    {
+                        name: "Maria Agudelo",
+                        value: 413
+                    },
+                    {
+                        name: "Isabella Amado Diaz",
+                        value: 415
+                    }
+                ]
             }
-        ],
-        modalidad: "Simple"
+        ]
     }
 }
 
