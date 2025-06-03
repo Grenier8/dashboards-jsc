@@ -211,6 +211,7 @@ select:focus {
     padding-bottom: 10px;
 }
 
+
 .chart-container {
     background-color: white;
     border-radius: 12px;
@@ -223,6 +224,15 @@ select:focus {
     align-items: center;
     justify-content: center;
 }
+
+.wider{
+    height: 400px;
+}
+
+.fullwidth{
+    width: 98%;
+}
+   
 
 .column {
     flex-direction: column;

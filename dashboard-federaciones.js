@@ -92,5 +92,5 @@ const tenantId = 17;
 
 // document.getElementById("startDateInput").value = "01-01-2020"
 
-// ChartCreator.rankingChart({ containerId: 'rankingDiv', rankingData: getRankingData("2020-01-01", "2026-01-01", 0, tenantId)})
+ChartCreator.allRankingCharts({ containerIds: ["ranking1Div", "ranking2Div", "ranking3Div"], allRankingData: getRankingData("2020-01-01", "2026-01-01", 0, tenantId)})
 ChartCreator.allBubbleCharts({ containerIds: ["bubbleDiv1", "bubbleDiv2", "bubbleDiv3"], allBubbleData: getBubbleData("2020-01-01", "2026-01-01", 0, tenantId)})

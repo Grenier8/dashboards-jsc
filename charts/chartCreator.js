@@ -70,10 +70,41 @@ export function motChart({ containerId, motData, categoryName }) {
     createBarsChart({ containerId, barsData })
 }
 
-export function allRankingCharts({ containerIds, allRTData }) {
-    rankingChart({ containerId: containerIds[0], rankingData: allRTData[0] });
-    rtChart({ containerId: containerIds[1], rtData: [allRTData[2], allRTData[3]], showScale: true });
-    rtChart({ containerId: containerIds[2], rtData: [allRTData[4], allRTData[5]] });
+export function allRankingCharts({ containerIds, allRankingData }) {
+    const palette = [
+        "#A5A9E2",
+        "#F6B0C1",
+        "#FDC58B",
+        "#FAE183",
+        "#CDE7B0",
+        "#8dd0ca",
+    ]
+
+    rankingChart({ containerId: containerIds[0], rankingData: {
+        Modo: allRankingData.data[0].Modo,
+        players: allRankingData.data[0].players.sort((a, b) => b.name.localeCompare(a.name)).map((p) => ({
+            name: p.name,
+            value: p.value,
+            color: palette[allRankingData.data[0].players.indexOf(p)],
+        })),
+    }});
+    rankingChart({ containerId: containerIds[1], rankingData: {
+        Modo: allRankingData.data[1].Modo,
+        players: allRankingData.data[1].players.sort((a, b) => b.name.localeCompare(a.name)).map((p) => ({
+            name: p.name,
+            value: p.value,
+            color: palette[allRankingData.data[1].players.indexOf(p)],
+        })),
+    }});
+    
+    rankingChart({ containerId: containerIds[2], rankingData: {
+        Modo: allRankingData.data[2].Modo,
+        players: allRankingData.data[2].players.sort((a, b) => b.name.localeCompare(a.name)).map((p) => ({
+            name: p.name,
+            value: p.value,
+            color: palette[allRankingData.data[2].players.indexOf(p)],
+        })),
+    }});
 }
 
 export function rankingChart({ containerId, rankingData }) {
@@ -82,28 +113,21 @@ export function rankingChart({ containerId, rankingData }) {
         return;
     }
 
-    const palette = [
-        "#A5A9E2",
-        "#F6B0C1",
-        "#FDC58B",
-        "#FAE183",
-        "#CDE7B0"
-    ]
-
     const barsData = {
         horizontal: true,
-        title: "Ranking General - Modalidad " + rankingData.modalidad,
+        borderColor: '#0474c4',
+        title:{text: "Ranking General - Modalidad " + rankingData.Modo, align: 'left'},
         defaultPoint: {
             tooltip:
-                `%value - Puntos obtenidos<br>por <span style="color: %color">%name</span>`,
+                `<b>%value</b> - Puntos obtenidos<br>por <b><span style="color: %color">%name</span></b>`,
         },
-        series: rankingData.data.map((bd) => ({
+        series: rankingData.players.sort((a, b) => a.value - b.value).map((bd) => ({
             name: bd.name,
             values: bd.value,
-            color: palette[rankingData.data.indexOf(bd)],
+            color: bd.color,
         })),
         onBarLabel: true,
-        xAxisSpacingPercentage: 0.4
+        xAxisSpacingPercentage: 0.2
     }
 
     createBarsChart({ containerId, barsData })

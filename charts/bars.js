@@ -1,16 +1,21 @@
 export function createBarsChart({ containerId, barsData }) {
     const chart = JSC.chart(containerId, {
         debug: false,
+        box:{
+            outline:{
+                visible:barsData.borderColor,
+                color:barsData.borderColor
+            }
+        },
         type: barsData.horizontal ? 'horizontalColumn' : 'column',
         legend_visible: false,
         title_label: {
-            text: barsData.title ? barsData.title : "",
+            text: barsData.title ? barsData.title.text : "",
             style_fontSize: 15,
             style_fontWeight: 'bold',
             style_width: "100%",
-            align: 'center'
         },
-        title_position: 'center',
+        title_position: barsData.title ? barsData.title.align : "center",
         yAxis_defaultTick_label_text: '%value',
         xAxis: {
             spacingPercentage: barsData.xAxisSpacingPercentage ? barsData.xAxisSpacingPercentage : 0.6
@@ -23,7 +28,7 @@ export function createBarsChart({ containerId, barsData }) {
                 defaultPoint: barsData.defaultPoint,
                 name: barsData.yAxisTitle,
                 palette: barsData.series.map(bd => bd.color),
-                points: barsData.series.map(bd => ({ name: bd.name, y: bd.values, label: barsData.onBarLabel ? { text: '%value', style_fontSize: 12, style_fontWeight: 'bold', offset: [-40, 0] } : undefined })),
+                points: barsData.series.map(bd => ({ name: bd.name, y: bd.values, label: barsData.onBarLabel ? { text: '%value', style_fontSize: 12, style_fontWeight: 'bold', style_color: '#000',placement: 'inside' } : undefined })),
             }
         ]
     });

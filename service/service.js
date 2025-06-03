@@ -27,72 +27,84 @@ export function getRankingData(startDate, endDate, userId, tenantId) {
                 Modo:"Simple",
                 players:[
                     {
-                        name: "Ivanna Parra",
-                        value: 425
+                        name: "Felipe Esquivel",
+                        value: 344
                     },
                     {
-                        name: "Maria Agudelo",
-                        value: 443
+                        name: "Mateo Martinez",
+                        value: 347
                     },
                     {
-                        name: "Camila Cortes",
-                        value: 460
+                        name: "Thomas de Martis",
+                        value: 348
                     },
                     {
-                        name: "Maria Tejada",
-                        value: 464
+                        name: "Misael Valero",
+                        value: 354
                     },
                     {
-                        name: "Ella Grace Martinez",
-                        value: 489
+                        name: "Elian Ojeda",
+                        value: 363
+                    },
+                    {
+                        name: "Agustin Martinez",
+                        value: 566
                     }
                 ]
             },{
                 Modo:"Stroop",
                 players:[
                     {
-                        name: "Ivanna Parra",
-                        value: 360
+                        name: "Felipe Esquivel",
+                        value: 496
                     },
                     {
-                        name: "Maria Tejeda",
-                        value: 369
+                        name: "Mateo Martinez",
+                        value: 403
                     },
                     {
-                        name: "Sofia Garcia",
+                        name: "Thomas de Martis",
+                        value: 401
+                    },
+                    {
+                        name: "Misael Valero",
+                        value: 408
+                    },
+                    {
+                        name: "Elian Ojeda",
                         value: 409
                     },
                     {
-                        name: "Maria Agudelo",
-                        value: 413
-                    },
-                    {
-                        name: "Isabella Amado Diaz",
-                        value: 415
+                        name: "Agustin Martinez",
+                        value: 473
                     }
                 ]
             },{
                 Modo:"GoNoGo",
                 players:[
                     {
-                        name: "Ivanna Parra",
-                        value: 360
+                        name: "Felipe Esquivel",
+                        value: 399
                     },
                     {
-                        name: "Maria Tejeda",
-                        value: 369
+                        name: "Mateo Martinez",
+                        value: 276
                     },
                     {
-                        name: "Sofia Garcia",
-                        value: 409
+                        name: "Thomas de Martis",
+                        value: 345
                     },
                     {
-                        name: "Maria Agudelo",
-                        value: 413
+                        name: "Misael Valero",
+                        value: 380
                     },
                     {
-                        name: "Isabella Amado Diaz",
-                        value: 415
+                        name: "Elian Ojeda",
+                        value: 444
+                    },
+                    {
+                        name: "Agustin Martinez",
+                        value: 442
                     }
                 ]
             }
