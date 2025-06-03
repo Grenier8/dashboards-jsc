@@ -1,154 +1,187 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gráfico con Conexiones</title>
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #f8f8f8;
-      height: 100vh;
-      margin: 0;
-    }
-    .label {
-      font-size: 20px;
-      font-weight: bold;
-      text-anchor: middle;
-      dominant-baseline: middle;
-    }
-    circle.progress {
-  stroke-dasharray: 251.2; /* 2πr aprox. */
-  stroke-dashoffset: 251.2;
-  animation: draw 1s ease-out forwards;
-}
-@keyframes draw {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-  </style>
-</head>
-<body>
-  <svg width="600" height="180" id="graph"></svg>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gráfico con Conexiones</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #f8f8f8;
+        height: 100vh;
+        margin: 0;
+      }
+      .label {
+        font-size: 20px;
+        font-weight: bold;
+        text-anchor: middle;
+        dominant-baseline: middle;
+      }
+      circle.progress {
+        stroke-dasharray: 251.2; /* 2πr aprox. */
+        stroke-dashoffset: 251.2;
+        animation: draw 1s ease-out forwards;
+      }
+      @keyframes draw {
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <svg width="600" height="180" id="graph"></svg>
 
-  <script>
-    const data = [344, 401, 276];
-    const maxValue = 500;
-    const centerY = 90;
-    const spacing = 160;
-    const radius = 50;
-    const strokeWidth = 18;
-    const outerR = radius + strokeWidth / 2;
-    const svg = document.getElementById("graph");
+    <script>
+      const data = [344, 401, 276];
+      const maxValue = 500;
+      const centerY = 90;
+      const spacing = 160;
+      const radius = 50;
+      const strokeWidth = 18;
+      const outerR = radius + strokeWidth / 2;
+      const svg = document.getElementById("graph");
 
-    // Gradiente
-    const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
-    defs.innerHTML = `
+      // Gradiente
+      const defs = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "defs"
+      );
+      defs.innerHTML = `
       <linearGradient id="grad" x1="0%" y1="0%" x2="0%" y2="100%">
         <stop offset="0%" stop-color="#2980b9"/>
         <stop offset="100%" stop-color="#6dd5fa"/>
       </linearGradient>
     `;
-    svg.appendChild(defs);
+      svg.appendChild(defs);
 
-    const centers = [];
+      const centers = [];
 
-    // Dibujar círculos
-    const testNames = ['Simple', 'Stroop', 'GoNoGo'];
-    const winnerNames = ['Felipe Esquivel', 'Thomas de Martis', 'Mateo Martínez'];
-    data.forEach((value, index) => {
-      const centerX = 100 + spacing * index;
-      centers.push(centerX);
+      // Dibujar círculos
+      const testNames = ["Simple", "Stroop", "GoNoGo"];
+      const winnerNames = [
+        "Felipe Esquivel",
+        "Thomas de Martis",
+        "Mateo Martínez",
+      ];
+      data.forEach((value, index) => {
+        const centerX = 100 + spacing * index;
+        centers.push(centerX);
 
-      const group = document.createElementNS("http://www.w3.org/2000/svg", "g");
-      group.setAttribute("transform", `translate(${centerX}, ${centerY})`);
+        const group = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "g"
+        );
+        group.setAttribute("transform", `translate(${centerX}, ${centerY})`);
 
-      // Fondo
-      const bg = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-      bg.setAttribute("r", radius);
-      bg.setAttribute("stroke", "#eee");
-      bg.setAttribute("stroke-width", strokeWidth);
-      bg.setAttribute("fill", "none");
-      group.appendChild(bg);
+        // Fondo
+        const bg = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "circle"
+        );
+        bg.setAttribute("r", radius);
+        bg.setAttribute("stroke", "#eee");
+        bg.setAttribute("stroke-width", strokeWidth);
+        bg.setAttribute("fill", "none");
+        group.appendChild(bg);
 
-      // Progreso
-      const fg = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-      fg.setAttribute("r", radius);
-      fg.setAttribute("stroke", "#4478a4");
-      fg.setAttribute("stroke-width", strokeWidth);
-      fg.setAttribute("fill", "none");
-      group.appendChild(fg);
+        // Progreso
+        const fg = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "circle"
+        );
+        fg.setAttribute("r", radius);
+        fg.setAttribute("stroke", "#4478a4");
+        fg.setAttribute("stroke-width", strokeWidth);
+        fg.setAttribute("fill", "none");
+        group.appendChild(fg);
 
-      // Texto arriba
-      const testName = document.createElementNS("http://www.w3.org/2000/svg", "text");
-      testName.setAttribute("class", "label");
-      testName.setAttribute("x", "0");
-      testName.setAttribute("y", "-60");
-      testName.textContent = testNames[index];
-      group.appendChild(testName);
+        // Texto arriba
+        const testName = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "text"
+        );
+        testName.setAttribute("class", "label");
+        testName.setAttribute("x", "0");
+        testName.setAttribute("y", "-60");
+        testName.textContent = testNames[index];
+        group.appendChild(testName);
 
-      // Texto
-      const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-      text.setAttribute("class", "label");
-      text.setAttribute("x", "0");
-      text.setAttribute("y", "0");
-      text.textContent = `${value} ms`;
-      group.appendChild(text);
+        // Texto
+        const text = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "text"
+        );
+        text.setAttribute("class", "label");
+        text.setAttribute("x", "0");
+        text.setAttribute("y", "0");
+        text.textContent = `${value} ms`;
+        group.appendChild(text);
 
-      // Texto abajo
-      const winnerName = document.createElementNS("http://www.w3.org/2000/svg", "text");
-      winnerName.setAttribute("class", "label");
-      winnerName.setAttribute("x", "0");
-      winnerName.setAttribute("y", "60");
-      winnerName.textContent = winnerNames[index];
-      group.appendChild(winnerName);
+        // Texto abajo
+        const winnerName = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "text"
+        );
+        winnerName.setAttribute("class", "label");
+        winnerName.setAttribute("x", "0");
+        winnerName.setAttribute("y", "60");
+        winnerName.textContent = winnerNames[index];
+        group.appendChild(winnerName);
 
-      svg.appendChild(group);
-    });
+        svg.appendChild(group);
+      });
 
-    // Conexiones simétricas con arco interno (mitad inferior, dentro del círculo azul)
-    for (let i = 0; i < centers.length; i++) {
-      const cx = centers[i];
-      const cy = centerY;
-      const r = radius - strokeWidth / 2 + 9; // Un poco más pequeño que el círculo azul
-      // Coordenadas de inicio y fin del arco
-      const xStart = cx - r;
-      const xEnd = cx + r;
-      const yArc = cy;
-      // Arco inferior (mitad inferior, dentro del círculo)
-      const d = `M ${xStart} ${yArc} A ${r} ${r} 0 0 0 ${xEnd} ${yArc}`;
-      const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-      path.setAttribute("d", d);
-      path.setAttribute("stroke", "#ccc");
-      path.setAttribute("stroke-width", "4");
-      path.setAttribute("fill", "none");
-      svg.appendChild(path);
+      // Conexiones simétricas con arco interno (mitad inferior, dentro del círculo azul)
+      for (let i = 0; i < centers.length; i++) {
+        const cx = centers[i];
+        const cy = centerY;
+        const r = radius - strokeWidth / 2 + 9; // Un poco más pequeño que el círculo azul
+        // Coordenadas de inicio y fin del arco
+        const xStart = cx - r;
+        const xEnd = cx + r;
+        const yArc = cy;
+        // Arco inferior (mitad inferior, dentro del círculo)
+        const d = `M ${xStart} ${yArc} A ${r} ${r} 0 0 0 ${xEnd} ${yArc}`;
+        const path = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        );
+        path.setAttribute("d", d);
+        path.setAttribute("stroke", "#ccc");
+        path.setAttribute("stroke-width", "4");
+        path.setAttribute("fill", "none");
+        svg.appendChild(path);
 
-      // Líneas horizontales a los lados
-      const lineLength = 40; // longitud de las líneas
-      // Línea izquierda
-      const lineLeft = document.createElementNS("http://www.w3.org/2000/svg", "line");
-      lineLeft.setAttribute("x1", xStart - lineLength );
-      lineLeft.setAttribute("y1", yArc);
-      lineLeft.setAttribute("x2", xStart + 2);
-      lineLeft.setAttribute("y2", yArc);
-      lineLeft.setAttribute("stroke", "#ccc");
-      lineLeft.setAttribute("stroke-width", "4");
-      svg.appendChild(lineLeft);
-      // Línea derecha
-      const lineRight = document.createElementNS("http://www.w3.org/2000/svg", "line");
-      lineRight.setAttribute("x1", xEnd -2);
-      lineRight.setAttribute("y1", yArc);
-      lineRight.setAttribute("x2", xEnd + lineLength);
-      lineRight.setAttribute("y2", yArc);
-      lineRight.setAttribute("stroke", "#ccc");
-      lineRight.setAttribute("stroke-width", "4");
-      svg.appendChild(lineRight);
-    }
-
-  </script>
-</body>
+        // Líneas horizontales a los lados
+        const lineLength = 40; // longitud de las líneas
+        // Línea izquierda
+        const lineLeft = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "line"
+        );
+        lineLeft.setAttribute("x1", xStart - lineLength);
+        lineLeft.setAttribute("y1", yArc);
+        lineLeft.setAttribute("x2", xStart + 2);
+        lineLeft.setAttribute("y2", yArc);
+        lineLeft.setAttribute("stroke", "#ccc");
+        lineLeft.setAttribute("stroke-width", "4");
+        svg.appendChild(lineLeft);
+        // Línea derecha
+        const lineRight = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "line"
+        );
+        lineRight.setAttribute("x1", xEnd - 2);
+        lineRight.setAttribute("y1", yArc);
+        lineRight.setAttribute("x2", xEnd + lineLength);
+        lineRight.setAttribute("y2", yArc);
+        lineRight.setAttribute("stroke", "#ccc");
+        lineRight.setAttribute("stroke-width", "4");
+        svg.appendChild(lineRight);
+      }
+    </script>
+  </body>
 </html>
