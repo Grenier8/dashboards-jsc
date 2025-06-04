@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="./JSC/jscharting.js"></script>
+    <script type="text/javascript" src="./JSC/modules/types.js"></script>
+    <script type="text/javascript" src="./JSC/modules/toolbar.js"></script>
+    <link rel="stylesheet" href="css/styles.css" />
+    <title>Dashboard</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="header">
+        <img
+          class="header-top-right-img"
+          src="https://avtrcon.sharepoint.com/sites/ImagenCorporativa/Logos/logotipos/Avattar/LOGOTIPO%20y%20IMAGOTIPO_Mesa%20de%20trabajo%201.png?referrer=SharePoint&referrerScenario=HighlightedContent-SharePoint&web=1"
+          alt="logo-avattar"
+          width="150"
+        />
+        <div class="title-container">
+          <div class="logo-container">
+            <img alt="logo-client" src="./images/logo-default.png" width="80" />
+            <h4>{LOGO}</h4>
+          </div>
+          <h1>RESULTADOS EJERCICIOS</h1>
+        </div>
+        <form id="filter-form" class="filter-bar">
+          <div class="filter-item-group">
+            <div class="filter-item">
+              <label for="to-date">Desde:</label>
+              <input
+                type="text"
+                id="startDateInput"
+                placeholder="Fecha inicial"
+                readonly
+              />
+              <div id="startDatePopup" class="date-popup"></div>
+            </div>
+            <div class="filter-item">
+              <label for="to-date">Hasta:</label>
+              <input
+                type="text"
+                id="endDateInput"
+                placeholder="Fecha final"
+                readonly
+              />
+              <div id="endDatePopup" class="date-popup"></div>
+            </div>
+            <div class="filter-item">
+              <label for="player">Jugador:</label>
+              <select title="jugador" id="userSelect"></select>
+            </div>
+          </div>
+          <div class="apply-button">
+            <button type="submit">Aplicar</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="content">
+        <div class="card">
+          <h2>Top Jugadores</h2>
+          <div id="radarDiv" class="chart-container"></div>
+        </div>
+        <div id="quartileCard" class="card">
+          <h2>Efectividad en los Cuartiles por tipo de Test</h2>
+          <div class="chart-container">
+            <div id="quartile1Div" class="fullheight-container"></div>
+            <div id="quartile2Div" class="fullheight-container"></div>
+            <div id="quartile3Div" class="fullheight-container"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card wider">
+        <h2>Tiempo de Reacción - Ranking General</h2>
+        <div class="chart-container fullwidth">
+          <div id="ranking1Div" class="fullheight-container"></div>
+          <div id="ranking2Div" class="fullheight-container"></div>
+          <div id="ranking3Div" class="fullheight-container"></div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="./dashboard-federaciones-player.js"></script>
+  </body>
+</html>

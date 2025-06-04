@@ -1,4 +1,11 @@
 export function createBarsChart({ containerId, barsData }) {
+    console.log(barsData)
+    console.log(barsData.yTicks.slice(0, -1).map((b, i) => ({
+        value: [b.value, barsData.yTicks[i+1].value],
+        fill: b.color,
+        opacity: 0.7,
+        zIndex: -1
+      })))
     const chart = JSC.chart(containerId, {
         debug: false,
         box:{
@@ -22,6 +29,14 @@ export function createBarsChart({ containerId, barsData }) {
         },
         yAxis: {
             label_text: barsData.yAxisTitle,
+            scale: barsData.yTicks ? {
+                range: [Math.min(...barsData.yTicks.map(t => t.value)), Math.max(...barsData.yTicks.map(t => t.value))]
+            } : undefined,
+            customTicks: barsData.yTicks ? barsData.yTicks.map(t => ({ value: t.value})) : undefined,
+            markers: barsData.yTicks.slice(0, -1).map((b, i) => ({
+                value: [b.value, barsData.yTicks[i+1].value],
+                color: b.color,
+              }))
         },
         series: [
             {

@@ -5,6 +5,7 @@ import { createLineChart } from "./line.js";
 import { createRadarChart } from "./radar.js";
 import { createPointChart } from "./point.js";
 import { createBubbleChart } from "./bubble.js";
+import { createBarsChartNew } from "./barsnew.js";
 
 export function datePickerChart(containerId, inputId) {
     createCalendarChart({ containerId, inputId })
@@ -128,6 +129,48 @@ export function rankingChart({ containerId, rankingData }) {
         })),
         onBarLabel: true,
         xAxisSpacingPercentage: 0.2
+    }
+
+    createBarsChart({ containerId, barsData })
+}
+
+export function allQuartileCharts({ containerIds, allQuartileData }) {
+    quartileChart({ containerId: containerIds[0], quartileData: allQuartileData.data[0] });
+    quartileChart({ containerId: containerIds[1], quartileData: allQuartileData.data[1] });
+    quartileChart({ containerId: containerIds[2], quartileData: allQuartileData.data[2] });
+}
+
+export function quartileChart({ containerId, quartileData }) {
+    if (!quartileData) {
+        setNoDataText(containerId)
+        return;
+    }
+
+    const palette = [
+        "#ffd8d8",
+        "#fff2d9",
+        "#ffffd9",
+        "#d7ead7",
+        "#d7ead7",
+    ]
+
+    const barsData = {
+        defaultPoint: {
+            tooltip:
+                `<b>%value</b> - Puntos obtenidos<br>en modalidad <b><span style="color: %color">%name</span></b>`,
+        },
+        series: [{
+            name: quartileData.Modo,
+            values: quartileData.Valor,
+            color: "#558df1",
+        }],
+        onBarLabel: true,
+        xAxisSpacingPercentage: 0.2,
+        ...quartileData.Modo == "Simple" ? {yAxisTitle:"Efectividad"} : {},
+        yTicks: quartileData.Ranges.map(r=>({
+            value: r,
+            color: palette[quartileData.Ranges.indexOf(r)]
+        }))
     }
 
     createBarsChart({ containerId, barsData })

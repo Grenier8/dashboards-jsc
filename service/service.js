@@ -137,6 +137,28 @@ export function getBubbleData(startDate, endDate, userId, tenantId) {
     }
 }
 
+export function getQuartileData(startDate, endDate, userId, tenantId) {
+    return {
+        data:[
+            {
+                Modo: "Simple",
+                Valor: 92.67,
+                Ranges:[65, 86.2,92.58,95.05,100]
+            },
+            {
+                Modo: "Stroop",
+                Valor: 83.79,
+                Ranges:[41.3,83.78,89.68,92,100]
+            },
+            {
+                Modo: "GoNoGo",
+                Valor: 85.71,
+                Ranges:[41.7,71.05,84.55,89.44,100]
+            }
+        ],
+    }
+}
+
 const getDatabaseInfo = async (mode, startDate, endDate, userId, tenantId) => {
     try {
         const response = await fetch('http://dev.avattar.cl/api/RAADRPT/GetData', {
