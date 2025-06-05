@@ -1,11 +1,10 @@
 import { createCalendarChart } from "./datePicker.js";
 import { createBarsChart, createGroupedBarsChart } from "./bars.js";
-import { createGaugeChart } from "./gauge.js";
+import { createGaugeChart, createGaugeChart2 } from "./gauge.js";
 import { createLineChart } from "./line.js";
 import { createRadarChart } from "./radar.js";
 import { createPointChart } from "./point.js";
 import { createBubbleChart } from "./bubble.js";
-import { createBarsChartNew } from "./barsnew.js";
 
 export function datePickerChart(containerId, inputId) {
     createCalendarChart({ containerId, inputId })
@@ -176,6 +175,56 @@ export function quartileChart({ containerId, quartileData }) {
     createBarsChart({ containerId, barsData })
 }
 
+export function allAttemptsCharts({ containerIds, allAttemptsData }) {
+    attemptsChart({ containerId: containerIds[0], attemptsData: allAttemptsData.data[0] });
+    attemptsChart({ containerId: containerIds[1], attemptsData: allAttemptsData.data[1] });
+    attemptsChart({ containerId: containerIds[2], attemptsData: allAttemptsData.data[2] });
+}
+
+export function attemptsChart({ containerId, attemptsData }) {
+    if (!attemptsData) {
+        setNoDataText(containerId)
+        return;
+    }
+
+    const palette = [
+        "#cbe4ae",
+        "#8ed1cb",
+        "#8dd7f8",
+        "#5794fa",
+    ]
+
+    const names = [
+        "Primero",
+        "Segundo",
+        "Tercero",
+        "Cuarto",
+    ]
+
+    const barsData = {
+        borderColor: '#0474c4',
+        title:{text: "Modalidad " + attemptsData.Modo, align: 'left'},
+        defaultPoint: {
+            tooltip:
+                `<b>%value</b> - Puntos obtenidos<br>en el intento <b><span style="color: %color">%name</span></b>`,
+        },
+        series: attemptsData.Attempts.map((bd) => ({
+            values: bd,
+            color: palette[attemptsData.Attempts.indexOf(bd)],
+            name: names[attemptsData.Attempts.indexOf(bd)],
+        })),
+        onBarLabel: true,
+        xAxisTitle: {
+            text: 'Intentos',
+            color: '#0474c4',
+        },
+        yAxisTitle: 'ms',
+        xAxisSpacingPercentage: 0.2
+    }
+
+    createBarsChart({ containerId, barsData })
+}
+
 export function pvChart({ containerId, pvData }) {
     if (!pvData) {
         setNoDataText(containerId)
@@ -291,31 +340,22 @@ export function pvChart3({ containerId, pvData }) {
 }
 
 export function allRTCharts({ containerIds, allRTData }) {
-    rtChart({ containerId: containerIds[0], rtData: [allRTData[0], allRTData[1]] });
-    rtChart({ containerId: containerIds[1], rtData: [allRTData[2], allRTData[3]], showScale: true });
-    rtChart({ containerId: containerIds[2], rtData: [allRTData[4], allRTData[5]] });
+    rtChart({ containerId: containerIds[0], rtData: allRTData.data[0] });
+    rtChart({ containerId: containerIds[1], rtData: allRTData.data[1]});
+    rtChart({ containerId: containerIds[2], rtData: allRTData.data[2] });
 }
 
-function rtChart({ containerId, rtData, showScale }) {
+function rtChart({ containerId, rtData }) {
     if (!rtData) {
         setNoDataText(containerId)
         return;
     }
 
     const gaugeData = {
-        title: rtData[0].Modo.charAt(0).toUpperCase() + rtData[0].Modo.slice(1),
-        data: [
-            {
-                name: rtData[0].NombreCompleto,
-                value: rtData[0].Score,
-                color: '#00BCD4',
-            },
-            {
-                name: rtData[1].CategoriaNombre == "" ? "Primera" : rtData[1].CategoriaNombre,
-                value: rtData[1].Score,
-                color: '#3F51B5',
-            }
-        ],
+        title: rtData.Modo.charAt(0).toUpperCase() + rtData.Modo.slice(1),
+        score: rtData.Valor,
+        name: "Alfredo",
+        ranges: rtData.Ranges,
         scale: [{
             name: 'Mejor',
             color: '#26A69A',
@@ -328,10 +368,9 @@ function rtChart({ containerId, rtData, showScale }) {
             name: 'Peor',
             color: '#D32F2F',
         }],
-        showScale: showScale,
     }
 
-    createGaugeChart({ containerId, gaugeData })
+    createGaugeChart2({ containerId, gaugeData })
 }
 
 export function allBubbleCharts({ containerIds, allBubbleData }) {

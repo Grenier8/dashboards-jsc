@@ -20,6 +20,26 @@ export async function getPVInfo(startDate, endDate, userId, tenantId) {
     return r;
 }
 
+export async function getRTInfo2(startDate, endDate, userId, tenantId) {
+    return {
+        data:[
+            {
+                Modo:"Simple",
+                Valor:492,
+                Ranges:[0,442,542,1000]
+            },{
+                Modo:"Stroop",
+                Valor:646,
+                Ranges:[0,494,594,1000]
+            },{
+                Modo:"GoNoGo",
+                Valor:361,
+                Ranges:[0,331,431,1000]
+            }
+        ]
+    }
+}
+
 export function getRankingData(startDate, endDate, userId, tenantId) {
     return {
         data:[
@@ -154,6 +174,25 @@ export function getQuartileData(startDate, endDate, userId, tenantId) {
                 Modo: "GoNoGo",
                 Valor: 85.71,
                 Ranges:[41.7,71.05,84.55,89.44,100]
+            }
+        ],
+    }
+}
+
+export function getAttemptsData(startDate, endDate, userId, tenantId) {
+    return {
+        data:[
+            {
+                Modo: "Simple",
+                Attempts:[423,344,418]
+            },
+            {
+                Modo: "Stroop",
+                Attempts:[511,496,507]
+            },
+            {
+                Modo: "GoNoGo",
+                Attempts:[524,399,540,479]
             }
         ],
     }

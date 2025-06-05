@@ -1,5 +1,5 @@
 import * as ChartCreator from "./charts/chartCreator.js";
-import { getMOTInfo, getRadarInfo, getUsersByTenant, getPVInfo, getRTInfo, getQuartileData } from "./service/service.js";
+import { getMOTInfo, getRadarInfo, getUsersByTenant, getPVInfo, getRTInfo2, getQuartileData, getAttemptsData } from "./service/service.js";
 
 //Varibles
 const startInput = document.getElementById("startDateInput");
@@ -92,4 +92,6 @@ const tenantId = 17;
 
 // document.getElementById("startDateInput").value = "01-01-2020"
 
+ChartCreator.allRTCharts({ containerIds: ["gauge1Div", "gauge2Div", "gauge3Div"], allRTData: await getRTInfo2("2020-01-01", "2026-01-01", 0, tenantId) })
 ChartCreator.allQuartileCharts({ containerIds: ["quartile1Div", "quartile2Div", "quartile3Div"], allQuartileData: await getQuartileData("2020-01-01", "2026-01-01", 0, tenantId) })
+ChartCreator.allAttemptsCharts({ containerIds: ["attempts1Div", "attempts2Div", "attempts3Div"], allAttemptsData: await getAttemptsData("2020-01-01", "2026-01-01", 0, tenantId) })
