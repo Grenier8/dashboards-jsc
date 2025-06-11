@@ -1,227 +1,245 @@
-
 export async function getUsersByTenant(tenantId) {
-    return await getDatabaseInfo("USER", "01-01-2000", "01-01-2026", 0, tenantId);
+  return await getDatabaseInfo("USER", "01-01-2000", "01-01-2026", 0, tenantId);
 }
 
 export async function getRadarInfo(startDate, endDate, userId, tenantId) {
-    return await getDatabaseInfo("RADAR", startDate, endDate, userId, tenantId);
+  return await getDatabaseInfo("RADAR", startDate, endDate, userId, tenantId);
 }
 
 export async function getRTInfo(startDate, endDate, userId, tenantId) {
-    return await getDatabaseInfo("RT", startDate, endDate, userId, tenantId);
+  return await getDatabaseInfo("RT", startDate, endDate, userId, tenantId);
 }
 
 export async function getMOTInfo(startDate, endDate, userId, tenantId) {
-    return await getDatabaseInfo("MOT", startDate, endDate, userId, tenantId);
+  return await getDatabaseInfo("MOT", startDate, endDate, userId, tenantId);
 }
 
 export async function getPVInfo(startDate, endDate, userId, tenantId) {
-    const r = await getDatabaseInfo("VP", startDate, endDate, userId, tenantId);
-    return r;
+  const r = await getDatabaseInfo("VP", startDate, endDate, userId, tenantId);
+  return r;
 }
 
 export async function getRTInfo2(startDate, endDate, userId, tenantId) {
-    return {
-        data:[
-            {
-                Modo:"Simple",
-                Valor:492,
-                Ranges:[0,442,542,1000]
-            },{
-                Modo:"Stroop",
-                Valor:646,
-                Ranges:[0,494,594,1000]
-            },{
-                Modo:"GoNoGo",
-                Valor:361,
-                Ranges:[0,331,431,1000]
-            }
-        ]
-    }
+  return {
+    data: [
+      {
+        Modo: "Simple",
+        Valor: 492,
+        Ranges: [0, 442, 542, 1000],
+      },
+      {
+        Modo: "Stroop",
+        Valor: 646,
+        Ranges: [0, 494, 594, 1000],
+      },
+      {
+        Modo: "GoNoGo",
+        Valor: 361,
+        Ranges: [0, 331, 431, 1000],
+      },
+    ],
+  };
 }
 
 export function getRankingData(startDate, endDate, userId, tenantId) {
-    return {
-        data:[
-            {
-                Modo:"Simple",
-                players:[
-                    {
-                        name: "Felipe Esquivel",
-                        value: 344
-                    },
-                    {
-                        name: "Mateo Martinez",
-                        value: 347
-                    },
-                    {
-                        name: "Thomas de Martis",
-                        value: 348
-                    },
-                    {
-                        name: "Misael Valero",
-                        value: 354
-                    },
-                    {
-                        name: "Elian Ojeda",
-                        value: 363
-                    },
-                    {
-                        name: "Agustin Martinez",
-                        value: 566
-                    }
-                ]
-            },{
-                Modo:"Stroop",
-                players:[
-                    {
-                        name: "Felipe Esquivel",
-                        value: 496
-                    },
-                    {
-                        name: "Mateo Martinez",
-                        value: 403
-                    },
-                    {
-                        name: "Thomas de Martis",
-                        value: 401
-                    },
-                    {
-                        name: "Misael Valero",
-                        value: 408
-                    },
-                    {
-                        name: "Elian Ojeda",
-                        value: 409
-                    },
-                    {
-                        name: "Agustin Martinez",
-                        value: 473
-                    }
-                ]
-            },{
-                Modo:"GoNoGo",
-                players:[
-                    {
-                        name: "Felipe Esquivel",
-                        value: 399
-                    },
-                    {
-                        name: "Mateo Martinez",
-                        value: 276
-                    },
-                    {
-                        name: "Thomas de Martis",
-                        value: 345
-                    },
-                    {
-                        name: "Misael Valero",
-                        value: 380
-                    },
-                    {
-                        name: "Elian Ojeda",
-                        value: 444
-                    },
-                    {
-                        name: "Agustin Martinez",
-                        value: 442
-                    }
-                ]
-            }
-        ]
-    }
+  return {
+    data: [
+      {
+        Modo: "Simple",
+        players: [
+          {
+            name: "Felipe Esquivel",
+            value: 344,
+          },
+          {
+            name: "Mateo Martinez",
+            value: 347,
+          },
+          {
+            name: "Thomas de Martis",
+            value: 348,
+          },
+          {
+            name: "Misael Valero",
+            value: 354,
+          },
+          {
+            name: "Elian Ojeda",
+            value: 363,
+          },
+          {
+            name: "Agustin Martinez",
+            value: 566,
+          },
+        ],
+      },
+      {
+        Modo: "Stroop",
+        players: [
+          {
+            name: "Felipe Esquivel",
+            value: 496,
+          },
+          {
+            name: "Mateo Martinez",
+            value: 403,
+          },
+          {
+            name: "Thomas de Martis",
+            value: 401,
+          },
+          {
+            name: "Misael Valero",
+            value: 408,
+          },
+          {
+            name: "Elian Ojeda",
+            value: 409,
+          },
+          {
+            name: "Agustin Martinez",
+            value: 473,
+          },
+        ],
+      },
+      {
+        Modo: "GoNoGo",
+        players: [
+          {
+            name: "Felipe Esquivel",
+            value: 399,
+          },
+          {
+            name: "Mateo Martinez",
+            value: 276,
+          },
+          {
+            name: "Thomas de Martis",
+            value: 345,
+          },
+          {
+            name: "Misael Valero",
+            value: 380,
+          },
+          {
+            name: "Elian Ojeda",
+            value: 444,
+          },
+          {
+            name: "Agustin Martinez",
+            value: 442,
+          },
+        ],
+      },
+    ],
+  };
 }
 
 export function getBubbleData(startDate, endDate, userId, tenantId) {
-    return {
-        data:[
-            {
-                Modo: "Simple",
-                Valor: 424,
-                Min: 297,
-                Max: 665,
-            },
-            {
-                Modo: "Stroop",
-                Valor: 506,
-                Min: 382,
-                Max: 734,
-            },
-            {
-                Modo: "GoNoGo",
-                Valor: 452,
-                Min: 382,
-                Max: 714,
-            }
-        ],
-    }
+  return {
+    data: [
+      {
+        Modo: "Simple",
+        Valor: 424,
+        Min: 297,
+        Max: 665,
+      },
+      {
+        Modo: "Stroop",
+        Valor: 506,
+        Min: 382,
+        Max: 734,
+      },
+      {
+        Modo: "GoNoGo",
+        Valor: 452,
+        Min: 218,
+        Max: 714,
+      },
+    ],
+  };
 }
 
 export function getQuartileData(startDate, endDate, userId, tenantId) {
-    return {
-        data:[
-            {
-                Modo: "Simple",
-                Valor: 92.67,
-                Ranges:[65, 86.2,92.58,95.05,100]
-            },
-            {
-                Modo: "Stroop",
-                Valor: 83.79,
-                Ranges:[41.3,83.78,89.68,92,100]
-            },
-            {
-                Modo: "GoNoGo",
-                Valor: 85.71,
-                Ranges:[41.7,71.05,84.55,89.44,100]
-            }
-        ],
-    }
+  return {
+    data: [
+      {
+        Modo: "Simple",
+        Valor: 92.67,
+        Ranges: [65, 86.2, 92.58, 95.05, 100],
+      },
+      {
+        Modo: "Stroop",
+        Valor: 83.79,
+        Ranges: [41.3, 83.78, 89.68, 92, 100],
+      },
+      {
+        Modo: "GoNoGo",
+        Valor: 85.71,
+        Ranges: [41.7, 71.05, 84.55, 89.44, 100],
+      },
+    ],
+  };
 }
 
 export function getAttemptsData(startDate, endDate, userId, tenantId) {
-    return {
-        data:[
-            {
-                Modo: "Simple",
-                Attempts:[423,344,418]
-            },
-            {
-                Modo: "Stroop",
-                Attempts:[511,496,507]
-            },
-            {
-                Modo: "GoNoGo",
-                Attempts:[524,399,540,479]
-            }
-        ],
-    }
+  return {
+    data: [
+      {
+        Modo: "Simple",
+        Attempts: [423, 344, 418],
+      },
+      {
+        Modo: "Stroop",
+        Attempts: [511, 496, 507],
+      },
+      {
+        Modo: "GoNoGo",
+        Attempts: [524, 399, 540, 479],
+      },
+    ],
+  };
+}
+
+export function getRingsData(startDate, endDate, userId, tenantId) {
+  const rankingData = getRankingData(startDate, endDate, userId, tenantId);
+
+  const ringsData = {
+    data: rankingData.data.map((r) => {
+      return {
+        Modo: r.Modo,
+        Valor: r.players.sort((a, b) => a.value - b.value)[0].value,
+        Nombre: r.players.sort((a, b) => a.value - b.value)[0].name,
+      };
+    }),
+  };
+
+  return ringsData;
 }
 
 const getDatabaseInfo = async (mode, startDate, endDate, userId, tenantId) => {
-    try {
-        const response = await fetch('http://dev.avattar.cl/api/RAADRPT/GetData', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                _Modo: mode,
-                _finicio: startDate,
-                _ffin: endDate,
-                _userid: userId,
-                _tenantid: tenantId
-            })
-        });
+  try {
+    const response = await fetch("http://dev.avattar.cl/api/RAADRPT/GetData", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        _Modo: mode,
+        _finicio: startDate,
+        _ffin: endDate,
+        _userid: userId,
+        _tenantid: tenantId,
+      }),
+    });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
 
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error("Error fetching data:", error);
-    };
-
-}
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+};

@@ -134,7 +134,7 @@ const max = gaugeData.ranges[gaugeData.ranges.length - 1];
       position: 'center',
     },
     title_label: {
-      style_fontSize: 17
+      style_fontSize: 12
     },
     // xAxis: {
     //   defaultTick: {
@@ -146,11 +146,11 @@ const max = gaugeData.ranges[gaugeData.ranges.length - 1];
       {
         id: 'ax1',
         defaultTick: {
-          padding: 10,
+          padding: 5,
           enabled: false
         },
         // customTicks: [min, centerI - delta, centerI + delta, max],
-        // customTicks: gaugeData.ranges.map(r => ({ value: r })),
+        customTicks: gaugeData.ranges.map(r => ({ value: r, label:{style_fontSize: 10} })),
         // customTicks: [
         //   {
         //     value: centerI,
@@ -160,12 +160,11 @@ const max = gaugeData.ranges[gaugeData.ranges.length - 1];
         //   }
         // ],
         line: {
-          width: 10,
+          width: 5,
 
-          /*Defining the option will enable it.*/
-          // breaks: {
-          //   custom: gaugeData.ranges.map(r => r / max),
-          // },
+          breaks: {
+            custom: gaugeData.ranges.map(r => r / max),
+          },
 
           /*Palette is defined at series level with an ID referenced here.*/
           color: 'smartPalette:pal1'
@@ -179,17 +178,16 @@ const max = gaugeData.ranges[gaugeData.ranges.length - 1];
        "ssss",
       shape: {
         label: [{
-          text: `%maxs<br>`,
+          text: `%max ms<br>`,
           align: 'center',
           verticalAlign: 'middle',
-          style_fontSize: 30
+          style_fontSize: 20
         },
         {
-          text: gaugeData.name,
-          color: "red",
+          text: gaugeData.mode,
           align: 'center',
           verticalAlign: 'middle',
-          margin: [8, 0, 0, 0],
+          margin: [-8, 0, 0, 0],
           style_fontSize: 15
         },
         ...(gaugeData.xAxisTitle ? [
@@ -211,14 +209,12 @@ const max = gaugeData.ranges[gaugeData.ranges.length - 1];
         palette: {
           id: 'pal1',
           pointValue: '%yValue',
-          ranges: [ 
-            { value: 350, color: '#FF5353' }, 
-            { value: 600, color: '#FFD221' }, 
-            { value: 700, color: '#77E6B4' }, 
-            { value: [800, 850], color: '#21D683' } 
-          ]
+          ranges: getIntervals(gaugeData.ranges).map((interval, index) => ({
+            value: interval,
+            color: gaugeData.scale[index].color
+          }))
         },
-        points: [['x', [350, 720]]] 
+        points: [['x', [0, gaugeData.score]]] 
       }
     ],
     // annotations: !gaugeData.showScale ? [] : [
