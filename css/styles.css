@@ -2,6 +2,40 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap");
 
+/* Tailwind CSS compatibility fixes */
+.chart-container,
+.chart-container-compact,
+.fullheight-container,
+.fullwidth-container {
+  /* Ensure these critical chart styles are not overridden by Tailwind */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.chart-container,
+.chart-container-compact {
+  background-color: white !important;
+  border-radius: 12px !important;
+  flex: 1 !important;
+  min-height: 200px !important;
+  width: 90% !important;
+  height: 300px !important;
+}
+
+.fullheight-container {
+  flex: 1 !important;
+  height: 100% !important;
+  width: 100% !important;
+}
+
+.fullwidth-container {
+  min-height: 0 !important;
+  width: 100% !important;
+}
+
 body {
   background: linear-gradient(135deg, #cbefff, #e9f7ef);
   /* background: linear-gradient(145deg, #f2f9fc, #eaf2f8); */
@@ -17,6 +51,10 @@ p {
 
 .container {
   padding: 16px;
+}
+
+.container-compact {
+  padding: 0px;
 }
 
 h2 {
@@ -49,6 +87,14 @@ h2 {
   font-size: 12px;
 }
 
+.font-14 {
+  font-size: 14px;
+}
+
+.font-44 {
+  font-size: 44px;
+}
+
 #bubbleCard h2 {
   margin-bottom: 0;
 }
@@ -77,6 +123,20 @@ h2 {
   align-items: center;
   text-align: center;
   margin-bottom: 20px;
+}
+
+.footer {
+  display: flex;
+  background-color: #ffffff;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 10px;
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .title-container {
@@ -201,11 +261,17 @@ select:focus {
   background-color: #2563eb;
 }
 
-.content {
+.card-group {
   display: flex;
   gap: 20px;
   justify-content: space-between;
   margin-bottom: 20px;
+}
+
+.card-group-compact {
+  display: flex;
+  justify-content: space-between;
+  height: 300px;
 }
 
 .card {
@@ -235,6 +301,35 @@ select:focus {
   padding-bottom: 10px;
 }
 
+.card-compact {
+  flex: 1;
+  box-sizing: border-box;
+
+  background-color: #ffffff;
+  min-height: 200px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.card-compact h2 {
+  margin: 10px 0px;
+}
+
+.name-container {
+  display: flex;
+  gap: 20px;
+  padding-left: 10px;
+  background-color: #ffffff;
+  align-items: center;
+}
+
+.name-container h2 {
+  padding-top: 10px;
+}
+
 .gap-60 {
   gap: 60px;
 }
@@ -249,44 +344,9 @@ select:focus {
   max-width: 60%;
 }
 
-.chart-container {
-  background-color: white;
-  border-radius: 12px;
-  flex: 1;
-  padding: 10px;
-  min-height: 200px;
-  width: 90%;
-  height: 300px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.wider {
-  height: 400px;
-}
-
-.fullwidth {
-  width: 98%;
-}
-
-.column {
-  flex-direction: column;
-}
-
 .chart-container h4 {
   font-weight: 100;
   padding-bottom: 40px;
-}
-
-.fullheight-container {
-  flex: 1;
-  height: 100%;
-}
-
-.fullwidth-container {
-  min-height: 0;
-  width: 100%;
 }
 
 .date-popup {
@@ -364,4 +424,30 @@ circle.progress {
   to {
     stroke-dashoffset: 0;
   }
+}
+
+.wider {
+  height: 400px !important;
+}
+
+.wider-compact {
+  height: 300px !important;
+}
+
+.fullwidth {
+  width: 98% !important;
+}
+
+.column {
+  flex-direction: column !important;
+}
+
+.fullheight-container {
+  flex: 1;
+  height: 100%;
+}
+
+.fullwidth-container {
+  min-height: 0;
+  width: 100%;
 }

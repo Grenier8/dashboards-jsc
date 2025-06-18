@@ -1,96 +1,170 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script type="text/javascript" src="./JSC/jscharting.js"></script>
     <script type="text/javascript" src="./JSC/modules/types.js"></script>
     <script type="text/javascript" src="./JSC/modules/toolbar.js"></script>
-    <link rel="stylesheet" href="css/styles.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              poetsen: ["Poetsen One", "sans-serif"],
+              spectral: ["Spectral", "serif"],
+              inter: [
+                "Inter",
+                "Segoe UI",
+                "system-ui",
+                "-apple-system",
+                "sans-serif",
+              ],
+              libre: ["Libre Franklin", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poetsen+One&family=Spectral:wght@400;700&family=Inter:wght@400;700&family=Libre+Franklin:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <title>Dashboard</title>
   </head>
-
-  <body>
-    <div class="container font-inter">
-      <div class="header">
+  <body
+    class="bg-gradient-to-br from-[#cbefff] to-[#e9f7ef] m-0 p-0 font-inter"
+  >
+    <div class="p-0">
+      <!-- Header -->
+      <div
+        class="bg-white shadow-lg rounded-2xl flex flex-col items-center text-center mb-5 relative"
+      >
         <img
-          class="header-top-right-img"
+          class="absolute top-2 right-6 h-auto z-20"
           src="https://avtrcon.sharepoint.com/sites/ImagenCorporativa/Logos/logotipos/Avattar/LOGOTIPO%20y%20IMAGOTIPO_Mesa%20de%20trabajo%201.png?referrer=SharePoint&referrerScenario=HighlightedContent-SharePoint&web=1"
           alt="logo-avattar"
           width="150"
         />
-        <div class="title-container">
-          <div class="logo-container">
+        <div
+          class="flex justify-between items-center mt-10 mb-4 px-5 gap-5 w-full"
+        >
+          <div class="flex flex-col items-center">
             <img alt="logo-client" src="./images/logo-default.png" width="80" />
-            <h4>{LOGO}</h4>
+            <h4 class="font-spectral m-0">LOGO</h4>
           </div>
-          <h1>RESULTADOS EJERCICIOS</h1>
+          <h1 class="font-poetsen text-[35px] font-bold mb-2">
+            RESULTADOS EJERCICIOS
+          </h1>
         </div>
-        <form id="filter-form" class="filter-bar">
-          <div class="filter-item-group">
-            <div class="filter-item">
-              <label for="to-date">Desde:</label>
+        <form
+          id="filter-form"
+          class="flex flex-wrap justify-between items-start gap-5 pb-4 w-4/5"
+        >
+          <div class="flex flex-wrap gap-5 flex-1 items-center">
+            <div class="flex flex-col min-w-[160px] flex-1 text-left">
+              <label class="mb-1 ml-1 font-medium" for="to-date">Desde:</label>
               <input
                 type="text"
                 id="startDateInput"
                 placeholder="Fecha inicial"
                 readonly
+                class="px-3 py-2 border border-gray-300 rounded-lg bg-white text-sm focus:border-blue-500 outline-none"
               />
-              <div id="startDatePopup" class="date-popup"></div>
+              <div
+                id="startDatePopup"
+                class="hidden absolute bg-white border border-gray-300 p-2 z-50 w-[300px] h-[280px] mx-auto"
+              ></div>
             </div>
-            <div class="filter-item">
-              <label for="to-date">Hasta:</label>
+            <div class="flex flex-col min-w-[160px] flex-1 text-left">
+              <label class="mb-1 ml-1 font-medium" for="to-date">Hasta:</label>
               <input
                 type="text"
                 id="endDateInput"
                 placeholder="Fecha final"
                 readonly
+                class="px-3 py-2 border border-gray-300 rounded-lg bg-white text-sm focus:border-blue-500 outline-none"
               />
-              <div id="endDatePopup" class="date-popup"></div>
+              <div
+                id="endDatePopup"
+                class="hidden absolute bg-white border border-gray-300 p-2 z-50 w-[300px] h-[280px] mx-auto"
+              ></div>
             </div>
-            <div class="filter-item">
-              <label for="player">Jugador:</label>
-              <select title="jugador" id="userSelect"></select>
+            <div class="flex flex-col min-w-[160px] flex-1 text-left">
+              <label class="mb-1 ml-1 font-medium" for="player">Jugador:</label>
+              <select
+                title="jugador"
+                id="userSelect"
+                class="px-3 py-2 border border-gray-300 rounded-lg bg-white text-sm focus:border-blue-500 outline-none"
+              ></select>
             </div>
           </div>
-          <div class="apply-button">
-            <button type="submit">Aplicar</button>
+          <div class="flex-1 flex items-center justify-center pt-6 ml-12">
+            <button
+              type="submit"
+              class="w-[150px] bg-blue-600 text-white py-2 px-5 rounded-lg font-medium text-sm hover:bg-blue-700 transition-colors"
+            >
+              Aplicar
+            </button>
           </div>
         </form>
       </div>
 
-      <div class="content">
-        <div class="card wider w-60">
-          <h2 class="font-medium">Tiempos Promedio por tipo de Test</h2>
-          <div class="chart-container gap-60">
-            <div id="gauge1Div" class="fullheight-container">
-            </div>
-            <div id="gauge2Div" class="fullheight-container">
-            </div>
-            <div id="gauge3Div" class="fullheight-container">
-            </div>
+      <div class="flex gap-5 pl-2 py-10 bg-white items-center">
+        <img src="./images/logo-default.png" alt="player-icon" width="100" />
+        <h2 class="text-[50px] pt-2">Fed. Argentina - Constanza Pacheco</h2>
+      </div>
+      <div class="flex flex-row w-full items-start bg-white">
+        <!-- Gauges -->
+        <div class="flex flex-col items-center basis-[55%]">
+          <h2 class="text-base mt-16">Tiempos Promedio por tipo de Test</h2>
+          <div class="flex flex-row justify-between w-[90%] h-[180px]">
+            <div id="gauge1Div" class="flex-1 h-full"></div>
+            <div id="gauge2Div" class="flex-1 h-full"></div>
+            <div id="gauge3Div" class="flex-1 h-full"></div>
+          </div>
         </div>
-        </div>
-        <div id="quartileCard" class="card wider">
-          <h2 class="font-medium">Efectividad en los Cuartiles por tipo de Test</h2>
-          <div class="chart-container">
-            <div id="quartile1Div" class="fullheight-container"></div>
-            <div id="quartile2Div" class="fullheight-container"></div>
-            <div id="quartile3Div" class="fullheight-container"></div>
+        <!-- Quartiles -->
+        <div class="flex flex-col items-center basis-[45%]">
+          <h2 class="text-base mb-2">
+            Efectividad en los Cuartiles por tipo de Test
+          </h2>
+          <div
+            class="flex flex-row items-end justify-between w-[90%] h-[250px]"
+          >
+            <div id="quartile1Div" class="flex-1 h-full"></div>
+            <div id="quartile2Div" class="flex-1 h-full"></div>
+            <div id="quartile3Div" class="flex-1 h-full"></div>
           </div>
         </div>
       </div>
-
-      <div class="card wider">
-        <h2 class="font-medium">Tiempo de Reacción - Ranking General</h2>
-        <div class="chart-container fullwidth">
-          <div id="attempts1Div" class="fullheight-container"></div>
-          <div id="attempts2Div" class="fullheight-container"></div>
-          <div id="attempts3Div" class="fullheight-container"></div>
+      <!-- Attempts Cards -->
+      <div class="bg-white rounded-2xl flex flex-col items-center text-center">
+        <div
+          class="flex bg-white rounded-xl w-full h-[250px] px-2 items-center justify-center"
+        >
+          <div id="attempts1Div" class="flex-1 h-full"></div>
+          <div id="attempts2Div" class="flex-1 h-full"></div>
+          <div id="attempts3Div" class="flex-1 h-full"></div>
         </div>
       </div>
     </div>
-
+    <!-- Footer -->
+    <div class="flex bg-white justify-between items-center px-2">
+      <div class="flex items-center gap-2">
+        <img src="./images/raad.png" alt="logo-raad" width="150" />
+        <img
+          src="https://avtrcon.sharepoint.com/sites/ImagenCorporativa/Logos/logotipos/Avattar/LOGOTIPO%20y%20IMAGOTIPO_Mesa%20de%20trabajo%201.png?referrer=SharePoint&referrerScenario=HighlightedContent-SharePoint&web=1"
+          alt="logo-conmebol"
+          width="100"
+          class="pt-6"
+        />
+      </div>
+      <div>
+        <img src="./images/conmebol.png" alt="logo-conmebol" width="60" />
+      </div>
+    </div>
     <script type="module" src="./dashboard-federaciones-player.js"></script>
   </body>
 </html>

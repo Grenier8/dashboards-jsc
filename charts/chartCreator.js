@@ -1,10 +1,10 @@
-import { createCalendarChart } from "./datePicker.js";
 import { createBarsChart, createGroupedBarsChart } from "./bars.js";
-import { createGaugeChart, createGaugeChart2 } from "./gauge.js";
-import { createLineChart } from "./line.js";
-import { createRadarChart } from "./radar.js";
-import { createPointChart } from "./point.js";
 import { createBubbleChart } from "./bubble.js";
+import { createCalendarChart } from "./datePicker.js";
+import { createGaugeChart2 } from "./gauge.js";
+import { createLineChart } from "./line.js";
+import { createPointChart } from "./point.js";
+import { createRadarChart } from "./radar.js";
 import { createRingChart } from "./rings.js";
 
 export function datePickerChart(containerId, inputId) {
@@ -363,11 +363,10 @@ export function pvChart3({ containerId, pvData }) {
         color: "#3F51B5",
         figure: "circle",
         defaultPoint: {
-          tooltip: `<span style="color: %color;">${
-            pvData[1].CategoriaNombre == ""
-              ? "Primera"
-              : pvData[1].CategoriaNombre
-          }</span><br>Pelota: <b>%xValue</b><br>Tiempo en el aire: <b>%yValue s</b>`,
+          tooltip: `<span style="color: %color;">${pvData[1].CategoriaNombre == ""
+            ? "Primera"
+            : pvData[1].CategoriaNombre
+            }</span><br>Pelota: <b>%xValue</b><br>Tiempo en el aire: <b>%yValue s</b>`,
         },
       },
     ],
@@ -377,13 +376,25 @@ export function pvChart3({ containerId, pvData }) {
 }
 
 export function allRTCharts({ containerIds, allRTData }) {
-  rtChart({ containerId: containerIds[0], rtData: allRTData.data[0] });
-  rtChart({ containerId: containerIds[1], rtData: allRTData.data[1] });
-  rtChart({ containerId: containerIds[2], rtData: allRTData.data[2] });
+  console.log("allRTCharts called with:", { containerIds, allRTData });
+
+  containerIds.forEach((containerId, index) => {
+    const container = document.getElementById(containerId);
+    console.log(`Container ${containerId}:`, container);
+    if (container) {
+      console.log(`Creating RT chart ${index + 1} for container:`, containerId);
+      rtChart({ containerId: containerId, rtData: allRTData.data[index] });
+    } else {
+      console.error(`Container not found: ${containerId}`);
+    }
+  });
 }
 
 function rtChart({ containerId, rtData }) {
+  console.log("rtChart called with:", { containerId, rtData });
+
   if (!rtData) {
+    console.log("No rtData provided, setting no data text");
     setNoDataText(containerId);
     return;
   }
@@ -408,7 +419,13 @@ function rtChart({ containerId, rtData }) {
     ],
   };
 
-  createGaugeChart2({ containerId, gaugeData });
+  console.log("Creating gauge chart with data:", gaugeData);
+  try {
+    createGaugeChart2({ containerId, gaugeData });
+    console.log("Gauge chart created successfully for:", containerId);
+  } catch (error) {
+    console.error("Error creating gauge chart for", containerId, ":", error);
+  }
 }
 
 export function allBubbleCharts({ containerIds, allBubbleData }) {

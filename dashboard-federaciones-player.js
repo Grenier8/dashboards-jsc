@@ -1,12 +1,12 @@
 import * as ChartCreator from "./charts/chartCreator.js";
 import {
-  getMOTInfo,
-  getRadarInfo,
-  getUsersByTenant,
-  getPVInfo,
-  getRTInfo2,
-  getQuartileData,
   getAttemptsData,
+  getMOTInfo,
+  getPVInfo,
+  getQuartileData,
+  getRadarInfo,
+  getRTInfo2,
+  getUsersByTenant,
 } from "./service/service.js";
 
 //Varibles
@@ -114,25 +114,52 @@ const tenantId = 17;
 
 // document.getElementById("startDateInput").value = "01-01-2020"
 
-ChartCreator.allRTCharts({
-  containerIds: ["gauge1Div", "gauge2Div", "gauge3Div"],
-  allRTData: await getRTInfo2("2020-01-01", "2026-01-01", 0, tenantId),
-});
-ChartCreator.allQuartileCharts({
-  containerIds: ["quartile1Div", "quartile2Div", "quartile3Div"],
-  allQuartileData: await getQuartileData(
+console.log("Starting chart creation...");
+
+try {
+  const rtData = await getRTInfo2("2020-01-01", "2026-01-01", 0, tenantId);
+  console.log("RT Data:", rtData);
+
+  ChartCreator.allRTCharts({
+    containerIds: ["gauge1Div", "gauge2Div", "gauge3Div"],
+    allRTData: rtData,
+  });
+} catch (error) {
+  console.error("Error creating RT charts:", error);
+}
+
+try {
+  const quartileData = await getQuartileData(
     "2020-01-01",
     "2026-01-01",
     0,
     tenantId
-  ),
-});
-ChartCreator.allAttemptsCharts({
-  containerIds: ["attempts1Div", "attempts2Div", "attempts3Div"],
-  allAttemptsData: await getAttemptsData(
+  );
+  console.log("Quartile Data:", quartileData);
+
+  ChartCreator.allQuartileCharts({
+    containerIds: ["quartile1Div", "quartile2Div", "quartile3Div"],
+    allQuartileData: quartileData,
+  });
+} catch (error) {
+  console.error("Error creating quartile charts:", error);
+}
+
+try {
+  const attemptsData = await getAttemptsData(
     "2020-01-01",
     "2026-01-01",
     0,
     tenantId
-  ),
-});
+  );
+  console.log("Attempts Data:", attemptsData);
+
+  ChartCreator.allAttemptsCharts({
+    containerIds: ["attempts1Div", "attempts2Div", "attempts3Div"],
+    allAttemptsData: attemptsData,
+  });
+} catch (error) {
+  console.error("Error creating attempts charts:", error);
+}
+
+console.log("Chart creation completed.");

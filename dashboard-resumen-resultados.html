@@ -1,73 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script type="text/javascript" src="./JSC/jscharting.js"></script>
     <script type="text/javascript" src="./JSC/modules/types.js"></script>
     <script type="text/javascript" src="./JSC/modules/toolbar.js"></script>
-    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/styles.css" />
     <title>Dashboard</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="container">
-        <div class="header">
-            <h1>RESULTADOS DETALLADOS JUEGOS RAAD</h1>
-            <form id="filter-form" class="filter-bar">
-                <div class="filter-item-group">
-                    <div class="filter-item">
-                        <label for="player">Juego:</label>
-                        <select title="Juego" id="gameSelect">
-                        </select>
-                    </div>
-                    <div class="filter-item">
-                        <label for="player">Jugador:</label>
-                        <select title="jugador" id="userSelect">
-                        </select>
-                    </div>
-                </div>
-                <div class="apply-button">
-                    <button type="submit">Aplicar</button>
-                </div>
-            </form>
-        </div>
-
-
-        <div class="content">
-            <div class="card">
-                <h2>Resumen</h2>
-                <div id="radarDiv" class="chart-container">
-                </div>
+      <div class="header">
+        <h1>RESULTADOS DETALLADOS JUEGOS RAAD</h1>
+        <form id="filter-form" class="filter-bar">
+          <div class="filter-item-group">
+            <div class="filter-item">
+              <label for="player">Juego:</label>
+              <select title="Juego" id="gameSelect"></select>
             </div>
-            <div class="card">
-                <h2>MOT</h2>
-                <div id="barsDiv" class="chart-container">
-                </div>
+            <div class="filter-item">
+              <label for="player">Jugador:</label>
+              <select title="jugador" id="userSelect"></select>
             </div>
-            <div class="card">
-                <h2>Campo Visual</h2>
-                <div id="lineDiv" class="chart-container">
-                </div>
-            </div>
-        </div>
+          </div>
+          <div class="apply-button">
+            <button type="submit">Aplicar</button>
+          </div>
+        </form>
+      </div>
 
+      <div class="content">
         <div class="card">
-            <h2>Tiempo de Reacción</h2>
-            <div class="chart-container">
-                <div id="gauge1Div" class="gauge-container">
-                </div>
-                <div id="gauge2Div" class="gauge-container">
-                </div>
-                <div id="gauge3Div" class="gauge-container">
-                </div>
-            </div>
+          <h2>Resumen</h2>
+          <div id="radarDiv" class="chart-container"></div>
         </div>
+        <div class="card">
+          <h2>MOT</h2>
+          <div id="barsDiv" class="chart-container"></div>
+        </div>
+        <div class="card">
+          <h2>Campo Visual</h2>
+          <div id="lineDiv" class="chart-container"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Tiempo de Reacción</h2>
+        <div class="chart-container">
+          <div id="gauge1Div" class="gauge-container"></div>
+          <div id="gauge2Div" class="gauge-container"></div>
+          <div id="gauge3Div" class="gauge-container"></div>
+        </div>
+      </div>
     </div>
 
     <script type="module" src="./dashboard.js"></script>
-
-</body>
-
+  </body>
 </html>
