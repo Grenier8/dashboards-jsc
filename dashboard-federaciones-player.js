@@ -101,18 +101,20 @@ const handleSubmit = async () => {
 
 //Setup
 const tenantId = 17;
-// await initiateUserSelect(17);
-// initiateDatePickers();
-// ChartCreator.datePickerChart(startPopup.id, startInput.id)
-// ChartCreator.datePickerChart(endPopup.id, endInput.id)
+await initiateUserSelect(17);
+initiateDatePickers();
+ChartCreator.datePickerChart(startPopup.id, startInput.id);
+ChartCreator.datePickerChart(endPopup.id, endInput.id);
 
-// document.getElementById("filter-form").addEventListener("submit", function (event) {
-//     event.preventDefault();
+document
+  .getElementById("filter-form")
+  .addEventListener("submit", function (event) {
+    event.preventDefault();
 
-//     handleSubmit();
-// });
+    handleSubmit();
+  });
 
-// document.getElementById("startDateInput").value = "01-01-2020"
+// document.getElementById("startDateInput").value = "01-01-2020";
 
 console.log("Starting chart creation...");
 

@@ -1,13 +1,13 @@
 import * as ChartCreator from "./charts/chartCreator.js";
 import {
+  getBubbleData,
   getMOTInfo,
-  getRadarInfo,
-  getUsersByTenant,
   getPVInfo,
   getRTInfo,
+  getRadarInfo,
   getRankingData,
-  getBubbleData,
   getRingsData,
+  getUsersByTenant,
 } from "./service/service.js";
 
 //Varibles
